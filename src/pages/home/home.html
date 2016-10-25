@@ -1,0 +1,17 @@
+
+<ion-content padding>
+  <div class="displayTable">
+    <div class="cellTable">
+      <div text-center>
+        <h1 class="soldeAmount" >{{devise}} {{solde }}<span *ngIf="isFloat === false">.-</span></h1>
+      </div>
+
+      <div text-center>
+        <button ion-button color="secondary" medium outline round icon-left (click)="goToLink($event,'add')"><ion-icon name="add"></ion-icon> Dépense / Revenu</button>
+        <br/>
+        <button ion-button color="gray" small outline round icon-left (click)="goToLink($event,'history')"> Historique</button>
+      </div>
+    </div>
+  </div>
+
+</ion-content>

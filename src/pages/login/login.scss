@@ -1,0 +1,18 @@
+page-login {
+  .content-md, .item-md {
+    background: $text-color;
+    color: #fff;
+  }
+  .button-md-withe {
+      color: #6FB9B5;
+  }
+  .item-input .label-md, .item-select .label-md, .item-datetime .label-md,
+  .input-has-focus .label-md[floating]{
+      color: #fff;
+  }
+  .item-md.item-block .item-inner,
+  .item-md.item-input.input-has-focus .item-inner {
+      border-bottom: 1px solid #fff;
+  }
+
+}
