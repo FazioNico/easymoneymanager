@@ -76,4 +76,7 @@ export class HomePage {
       }
       return list.sort(compare);
   }
+  onBlur(){
+    document.querySelector('h1').classList.toggle("blur")
+  }
 }
