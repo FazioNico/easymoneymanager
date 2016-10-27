@@ -40,8 +40,8 @@ export class AddPage {
       else {
         categorie = this.amountForm.value.category
       }
-      let total:number = Number(this.params.get('solde')) + Number(this.amountForm.value.amount)
-      this.fb.saveUserWallet(total, this.amountForm.value.amount, categorie.toString(), true, this.uid)
+      let total:number = +(Math.round(this.params.get('solde')*Math.pow(10,2))/Math.pow(10,2)).toFixed(2) + (+(Math.round(this.amountForm.value.amount*Math.pow(10,2))/Math.pow(10,2)).toFixed(2))
+      this.fb.saveUserWallet(total, +(Math.round(this.amountForm.value.amount*Math.pow(10,2))/Math.pow(10,2)).toFixed(2), categorie.toString(), true, this.uid)
       .then(()=>{
         this.navCtrl.setRoot(HomePage, {solde: total});
       })
@@ -58,8 +58,8 @@ export class AddPage {
       else {
         categorie = this.amountForm.value.category
       }
-      let total:number = Number(this.params.get('solde')) - Number(this.amountForm.value.amount)
-      this.fb.saveUserWallet(total, this.amountForm.value.amount, categorie.toString(), false, this.uid)
+      let total:number = +(Math.round(this.params.get('solde')*Math.pow(10,2))/Math.pow(10,2)).toFixed(2) - (+(Math.round(this.amountForm.value.amount*Math.pow(10,2))/Math.pow(10,2)).toFixed(2))
+      this.fb.saveUserWallet(total, +(Math.round(this.amountForm.value.amount*Math.pow(10,2))/Math.pow(10,2)).toFixed(2), categorie.toString(), false, this.uid)
       .then(()=>{
         this.navCtrl.setRoot(HomePage, {solde: total});
       })

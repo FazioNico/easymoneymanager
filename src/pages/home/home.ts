@@ -16,6 +16,7 @@ export class HomePage {
   solde: number = 0;
   devise: string;
   isFloat: boolean = true;
+  isBlur:boolean = false
 
   constructor(
     public navCtrl: NavController,
@@ -37,10 +38,20 @@ export class HomePage {
   }
 
   loadUserWallet(uid){
-    let userSoldeRef = this.fb.userSolde.child(uid);
-    userSoldeRef.on('value', (snapshot)=> {
+    this.fb.userSolde.child(uid)
+    .on('value', (snapshot)=> {
       if(snapshot.val() != null){
         this.setSolde(snapshot.val().solde)
+      }
+    });
+    this.fb.userProfile.child(uid)
+    .on('value', (snapshot)=> {
+      console.log(snapshot.val())
+      if(snapshot.val() != null || snapshot.val().blur){
+        this.isBlur = snapshot.val().blur
+      }
+      else {
+        this.isBlur = false
       }
     });
   }
@@ -77,6 +88,12 @@ export class HomePage {
       return list.sort(compare);
   }
   onBlur(){
-    document.querySelector('h1').classList.toggle("blur")
+    this.fb.userProfile.child(this.uid).update({
+      blur: !this.isBlur
+    })
+    .then(()=>{
+      document.querySelector('h1').classList.toggle("blur")
+      this.isBlur = !this.isBlur
+    })
   }
 }

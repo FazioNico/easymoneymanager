@@ -6,7 +6,8 @@
     </ion-title>
     <ion-buttons end>
     <button ion-button color="withe" (click)="onBlur()">
-      <ion-icon name="eye-off"></ion-icon>
+      <ion-icon *ngIf="isBlur === false" name="eye-off"></ion-icon>
+      <ion-icon *ngIf="isBlur === true" name="eye"></ion-icon>
     </button>
   </ion-buttons>
   </ion-navbar>
