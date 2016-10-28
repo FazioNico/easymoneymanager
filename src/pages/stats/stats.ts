@@ -59,8 +59,8 @@ export class StatsPage {
   }
 
   loadData(uid){
-    let dateMin = new Date(new Date().getFullYear(), this.month, 1)
-    let dateMax = new Date(new Date().getFullYear(), this.month, 31)
+    let dateMin = new Date(this.year, this.month, 1)
+    let dateMax = new Date(this.year, this.month, 31)
     this.fb.userWallet.child(uid)
     .on('value', (snapshot)=> {
       let creditTotal:number = 0;
@@ -95,12 +95,19 @@ export class StatsPage {
       this.month = this.month + 1
       this.loadData(this.userID)
     }
-
+    // else {
+    //   this.month = 0
+    //   this.year = this.year + 1
+    // }
   }
   downMont(){
     if(this.month > 0){
       this.month = this.month - 1
       this.loadData(this.userID)
     }
+    // else {
+    //   this.month = 12
+    //   this.year = this.year - 1
+    // }
   }
 }
