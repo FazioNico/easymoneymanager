@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import {Validators, FormBuilder } from '@angular/forms';
 
-import { HomePage } from '../home/home';
 import { FirebaseService } from '../../providers/firebase-service';
 
 /*
@@ -43,7 +42,7 @@ export class AddPage {
       let total:number = +(Math.round(this.params.get('solde')*Math.pow(10,2))/Math.pow(10,2)).toFixed(2) + (+(Math.round(this.amountForm.value.amount*Math.pow(10,2))/Math.pow(10,2)).toFixed(2))
       this.fb.saveUserWallet(total, +(Math.round(this.amountForm.value.amount*Math.pow(10,2))/Math.pow(10,2)).toFixed(2), categorie.toString(), true, this.uid)
       .then(()=>{
-        this.navCtrl.setRoot(HomePage, {solde: total});
+        this.navCtrl.pop();
       })
 
     }
@@ -61,7 +60,7 @@ export class AddPage {
       let total:number = +(Math.round(this.params.get('solde')*Math.pow(10,2))/Math.pow(10,2)).toFixed(2) - (+(Math.round(this.amountForm.value.amount*Math.pow(10,2))/Math.pow(10,2)).toFixed(2))
       this.fb.saveUserWallet(total, +(Math.round(this.amountForm.value.amount*Math.pow(10,2))/Math.pow(10,2)).toFixed(2), categorie.toString(), false, this.uid)
       .then(()=>{
-        this.navCtrl.setRoot(HomePage, {solde: total});
+        this.navCtrl.pop();
       })
     }
   }

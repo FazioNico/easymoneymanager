@@ -1,4 +1,13 @@
 page-add {
+  .displayTable {
+    display:table;
+    width: 100%;
+    height: 100%;
+  }
+  .cellTable {
+    display: table-cell;
+    vertical-align: middle;
+  }
   .divInput {
     max-width: 170px;
     margin: auto;

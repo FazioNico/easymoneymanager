@@ -27,14 +27,16 @@ export class HomePage {
     this.title = 'Welcome to Ionic 2 RC.1 updated';
     this.devise = 'CHF';
     this.uid = this.fb.fireAuth.currentUser.uid
-    if (this.params.get('solde')){
-      console.log('params-> ',this.params.get('solde'))
-      this.setSolde(this.params.get('solde'))
-    }
-    else {
-      this.loadUserWallet(this.uid);
-    }
+    // if (this.params.get('solde')){
+    //   console.log('params-> ',this.params.get('solde'))
+    //   this.setSolde(this.params.get('solde'))
+    // }
+    // else {
+    //   this.loadUserWallet(this.uid);
+    // }
 
+    this.loadUserWallet(this.uid);
+    this.loadUserSettings(this.uid);
   }
 
   loadUserWallet(uid){
@@ -44,6 +46,9 @@ export class HomePage {
         this.setSolde(snapshot.val().solde)
       }
     });
+  }
+
+  loadUserSettings(uid){
     this.fb.userProfile.child(uid)
     .on('value', (snapshot)=> {
       console.log(snapshot.val())
@@ -53,6 +58,7 @@ export class HomePage {
       else {
         this.isBlur = false
       }
+      (this.isBlur === true) ?  document.querySelector('h1').classList.add("blur") : document.querySelector('h1').classList.remove("blur");
     });
   }
 
@@ -90,10 +96,6 @@ export class HomePage {
   onBlur(){
     this.fb.userProfile.child(this.uid).update({
       blur: !this.isBlur
-    })
-    .then(()=>{
-      document.querySelector('h1').classList.toggle("blur")
-      this.isBlur = !this.isBlur
     })
   }
 }

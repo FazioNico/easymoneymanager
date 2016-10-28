@@ -15,28 +15,34 @@
 </ion-header>
 
 <ion-content padding>
-  <form [formGroup]="amountForm">
-    <div class="divInput">
-      <ion-item>
-        <ion-label>CHF</ion-label>
-        <ion-input type="number" formControlName="amount" required></ion-input>
-      </ion-item>
+  <div class="displayTable">
+    <div class="cellTable">
+      <form [formGroup]="amountForm">
+        <div class="divInput">
+          <ion-item>
+            <ion-label>CHF</ion-label>
+            <ion-input type="number" formControlName="amount" required></ion-input>
+          </ion-item>
+        </div>
+        <ion-item>
+          <ion-label>Catégories</ion-label>
+          <ion-select formControlName="category" multiple="false">
+            <ion-option value="alimentation">Alimentation</ion-option>
+            <ion-option value="divers">Divers</ion-option>
+            <ion-option value="assurence">Assurence</ion-option>
+            <ion-option value="tel">Téléphone</ion-option>
+            <ion-option value="internet">Internet</ion-option>
+            <ion-option value="cigarette">Cigarette</ion-option>
+          </ion-select>
+        </ion-item>
+        <div text-center>
+          <br/>
+          <button ion-button outline round icon-left (click)="removeAmount()" [disabled]="!amountForm.valid" color="primary"><ion-icon name="remove"></ion-icon> Dépense </button>
+          <button ion-button outline round icon-left (click)="addAmount()" [disabled]="!amountForm.valid" color="secondary"><ion-icon name="add"></ion-icon> Revenu </button>
+        </div>
+      </form>
     </div>
-    <ion-item>
-      <ion-label>Catégories</ion-label>
-      <ion-select formControlName="category" multiple="false">
-        <ion-option value="alimentation">Alimentation</ion-option>
-        <ion-option value="divers">Divers</ion-option>
-        <ion-option value="assurence">Assurence</ion-option>
-        <ion-option value="tel">Téléphone</ion-option>
-        <ion-option value="internet">Internet</ion-option>
-        <ion-option value="cigarette">Cigarette</ion-option>
-      </ion-select>
-    </ion-item>
-    <div text-center>
-      <button ion-button outline round icon-left (click)="removeAmount()" [disabled]="!amountForm.valid" color="primary"><ion-icon name="remove"></ion-icon> Dépense </button>
-      <button ion-button outline round icon-left (click)="addAmount()" [disabled]="!amountForm.valid" color="secondary"><ion-icon name="add"></ion-icon> Revenu </button>
-    </div>
-  </form>
+  </div>
+
 
 </ion-content>
