@@ -12,8 +12,8 @@
 
 
 <ion-content>
-  <ion-list *ngFor="let cat of categories">
-    <ion-item>
+  <ion-list>
+    <ion-item *ngFor="let cat of categories">
         <p color="primary">{{cat}}</p>
     </ion-item>
   </ion-list>

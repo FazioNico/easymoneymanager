@@ -22,6 +22,7 @@ export class FirebaseService {
 
   userProfile: any;
   walletSolde:any;
+  userCat:any;
   currentUserWallet: any;
 
   constructor(public http: Http, public alertCtrl: AlertController) {
@@ -30,6 +31,7 @@ export class FirebaseService {
     this.userProfile = firebase.database().ref('/userProfile');
     this.userWallet = firebase.database().ref('/userWallet');
     this.userSolde = firebase.database().ref('/userSolde');
+    this.userCat = firebase.database().ref('/userCat');
   }
 
   loginUser(email: string, password: string): any {

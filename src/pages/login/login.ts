@@ -128,6 +128,22 @@ export class LoginPage {
     }).then(()=>{
       //this.fb.setUserSolde(authenticatedUser.uid);
     })
+
+    console.log('create user categories')
+    let cats = [
+      'Alimentation',
+      'Divers',
+      'Assurence',
+      'Téléphone',
+      'Internet',
+      'Cigarette',
+      'Salaire'
+    ];
+    cats.map((cat)=>{
+      this.fb.userCat.child(authenticatedUser.uid).push({
+        name: cat
+      })
+    })
   }
 
   showError(text:string,hideLoading:boolean=true) {

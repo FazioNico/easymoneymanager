@@ -16,7 +16,7 @@ import { FirebaseService } from '../../providers/firebase-service';
 export class CategoriesPage {
 
   uid:number;
-  categories:string[];
+  categories:any[] = [];
 
   constructor(
     public navCtrl: NavController,
@@ -35,6 +35,16 @@ export class CategoriesPage {
 
   loadData(uid){
     console.log('load user categories');
+    this.fb.userCat.child(uid)
+    .on('value', (snapshot)=> {
+      if(snapshot.val() != null){
+        snapshot.forEach((childSnapshot)=>{
+          //console.log(childSnapshot.val())
+          this.categories.push(childSnapshot.val().name)
+        })
+
+      }
+    });
   }
 
   saveCategorie(){
