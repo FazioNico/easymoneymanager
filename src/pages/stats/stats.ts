@@ -78,9 +78,9 @@ export class StatsPage {
           }
         }
       });
-      this.creditTotal = creditTotal;
-      this.debitTotal = debitTotal;
-      this.solde = Number(creditTotal) - Number(debitTotal);
+      this.creditTotal = +(Math.round(creditTotal*Math.pow(10,2))/Math.pow(10,2)).toFixed(2);
+      this.debitTotal = +(Math.round(debitTotal*Math.pow(10,2))/Math.pow(10,2)).toFixed(2);
+      this.solde = +(Math.round((Number(creditTotal) - Number(debitTotal))*Math.pow(10,2))/Math.pow(10,2)).toFixed(2)
       //console.log('true-> ', creditTotal)
       //console.log('false-> ', debitTotal)
     });
