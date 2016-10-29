@@ -9,6 +9,7 @@ import { AddPage } from '../pages/add/add';
 import { StatsPage } from '../pages/stats/stats';
 import { HistoryPage } from '../pages/history/history';
 import { SettingsPage } from '../pages/settings/settings';
+import { CategoriesPage } from '../pages/categories/categories';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { FirebaseService } from '../providers/firebase-service';
@@ -22,6 +23,7 @@ import { FirebaseService } from '../providers/firebase-service';
     StatsPage,
     HistoryPage,
     SettingsPage,
+    CategoriesPage,
     TabsPage
   ],
   imports: [
@@ -39,6 +41,7 @@ import { FirebaseService } from '../providers/firebase-service';
     StatsPage,
     HistoryPage,
     SettingsPage,
+    CategoriesPage,
     TabsPage
   ],
   providers: [

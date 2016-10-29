@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
+import { CategoriesPage } from '../categories/categories';
 import { FirebaseService } from '../../providers/firebase-service';
 
 /*
@@ -37,6 +38,10 @@ export class SettingsPage {
     .on('value', (snapshot)=> {
       this.email = snapshot.val().email
     });
+  }
+
+  goCategorie(){
+    this.navCtrl.push(CategoriesPage);
   }
 
   logout(){
