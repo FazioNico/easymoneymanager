@@ -38,7 +38,7 @@ export class LoginPage {
       } else {
         //this.rootPage = LoginPage;
         console.log("stay on LoginPage ->", user);
-        if(this.navCtrl.getActive().name !== 'LoginPage'){
+        if(this.navCtrl.getActive().name != 'LoginPage'){
           console.log("goto LoginPage ->", user);
           this.navCtrl.setRoot(LoginPage);
         }
