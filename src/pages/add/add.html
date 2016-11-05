@@ -27,13 +27,7 @@
         <ion-item>
           <ion-label>Catégories</ion-label>
           <ion-select formControlName="category" multiple="false">
-            <ion-option value="alimentation">Alimentation</ion-option>
-            <ion-option value="divers">Divers</ion-option>
-            <ion-option value="assurence">Assurence</ion-option>
-            <ion-option value="tel">Téléphone</ion-option>
-            <ion-option value="internet">Internet</ion-option>
-            <ion-option value="cigarette">Cigarette</ion-option>
-            <ion-option value="salaire">Salaire</ion-option>
+            <ion-option *ngFor="let cat of catData" value="{{cat}}">{{cat}}</ion-option>
           </ion-select>
         </ion-item>
         <div text-center>
