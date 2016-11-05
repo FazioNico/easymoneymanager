@@ -17,6 +17,8 @@ export class CategoriesPage {
 
   uid:number;
   categories:any[] = [];
+  focus: boolean = false;
+  newCat: string;
 
   constructor(
     public navCtrl: NavController,
@@ -38,9 +40,10 @@ export class CategoriesPage {
     this.fb.userCat.child(uid)
     .on('value', (snapshot)=> {
       if(snapshot.val() != null){
+        this.categories = [];
         snapshot.forEach((childSnapshot)=>{
           //console.log(childSnapshot.val())
-          this.categories.push(childSnapshot.val().name)
+          this.categories.push(childSnapshot)
         })
 
       }
@@ -48,11 +51,35 @@ export class CategoriesPage {
   }
 
   saveCategorie(){
-    console.log('Save new categories');
+    console.log('Save new categories...');
+    this.focus = false
+    this.fb.userCat.child(this.uid).push({
+      name: this.newCat
+    })
+    .then(()=>{
+      console.log('Categorie save!')
+      this.newCat = '';
+    })
   }
 
   goBackPage(){
     this.navCtrl.pop();
+  }
+
+  onFocus(){
+    console.log(this.newCat)
+    if(this.newCat.length >= 2){
+      this.focus = true
+    }
+
+  }
+  dellCategorie(catKey:string){
+    console.log('Dell new categories...');
+    this.fb.userCat.child(this.uid).child(catKey).remove()
+    .then(()=>{
+      console.log('Categorie dell!')
+    })
+    console.log(catKey)
   }
 
 }
