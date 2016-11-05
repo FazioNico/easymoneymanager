@@ -35,15 +35,7 @@ export class LoginPage {
         console.log("goto TabsPage ->", user);
         //this.loadUserWallet(user.uid)
         this.navCtrl.setRoot(TabsPage);
-      } else {
-        //this.rootPage = LoginPage;
-        console.log("stay on LoginPage ->", user);
-        if(this.navCtrl.getActive().name != 'LoginPage'){
-          console.log("goto LoginPage ->", user);
-          this.navCtrl.setRoot(LoginPage);
-        }
-
-      }
+      } 
     });
 
   }
