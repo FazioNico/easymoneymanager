@@ -28,15 +28,11 @@ export class StatsPage {
     public navCtrl: NavController,
     public fb: FirebaseService
   ) {
-    this.fb.fireAuth.onAuthStateChanged((user)=> {
-        if (user) {
-          // User is signed in.
-          this.userID = user.uid
-          this.loadData(this.userID)
-        } else {
-          // No user is signed in.
-        }
-    });
+    let user = this.fb.fireAuth.currentUser
+    if(user!= null){
+      this.userID = user.uid
+    }
+
     this.month = new Date().getMonth()
     this.monthName = [
       'janvier',
@@ -56,6 +52,9 @@ export class StatsPage {
 
   ionViewDidLoad() {
     console.log('Hello Stats Page');
+    if(this.userID){
+      this.loadData(this.userID)
+    }
   }
 
   loadData(uid){
@@ -63,26 +62,29 @@ export class StatsPage {
     let dateMax = new Date(this.year, this.month, 31)
     this.fb.userWallet.child(uid)
     .on('value', (snapshot)=> {
-      let creditTotal:number = 0;
-      let debitTotal:number = 0;
-      let datas = snapshot.val();
-      Object.keys(datas).map((key) =>{
-        if(datas[key].timestamp > dateMin.getTime() && datas[key].timestamp < dateMax.getTime()){
-          switch (datas[key].status) {
-            case true:
-              creditTotal = Number(creditTotal) + Number(datas[key].price)
-              break;
-            case false:
-              debitTotal = Number(debitTotal) + Number(datas[key].price)
-              break;
+      if(snapshot.val() != null){
+        console.log('load datas')
+        let creditTotal:number = 0;
+        let debitTotal:number = 0;
+        let datas = snapshot.val();
+        Object.keys(datas).map((key) =>{
+          if(datas[key].timestamp > dateMin.getTime() && datas[key].timestamp < dateMax.getTime()){
+            switch (datas[key].status) {
+              case true:
+                creditTotal = Number(creditTotal) + Number(datas[key].price)
+                break;
+              case false:
+                debitTotal = Number(debitTotal) + Number(datas[key].price)
+                break;
+            }
           }
-        }
-      });
-      this.creditTotal = +(Math.round(creditTotal*Math.pow(10,2))/Math.pow(10,2)).toFixed(2);
-      this.debitTotal = +(Math.round(debitTotal*Math.pow(10,2))/Math.pow(10,2)).toFixed(2);
-      this.solde = +(Math.round((Number(creditTotal) - Number(debitTotal))*Math.pow(10,2))/Math.pow(10,2)).toFixed(2)
-      //console.log('true-> ', creditTotal)
-      //console.log('false-> ', debitTotal)
+        });
+        this.creditTotal = +(Math.round(creditTotal*Math.pow(10,2))/Math.pow(10,2)).toFixed(2);
+        this.debitTotal = +(Math.round(debitTotal*Math.pow(10,2))/Math.pow(10,2)).toFixed(2);
+        this.solde = +(Math.round((Number(creditTotal) - Number(debitTotal))*Math.pow(10,2))/Math.pow(10,2)).toFixed(2)
+        //console.log('true-> ', creditTotal)
+        console.log('false-> ', this.debitTotal)
+      }
     });
   }
 
