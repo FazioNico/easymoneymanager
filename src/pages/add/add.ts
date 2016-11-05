@@ -18,7 +18,7 @@ export class AddPage {
 
   amountForm:any;
   user:any;
-  category: string;
+  category: string = "Divers";
   catData:string[] = []
 
   constructor(
@@ -40,12 +40,12 @@ export class AddPage {
     this.fb.userCat.child(this.user.uid)
     .on('value', (snapshot)=> {
       if(snapshot.val() != null){
+        this.catData = [];
         snapshot.forEach((childSnapshot)=>{
           if(childSnapshot.val().name){
             this.catData.push(childSnapshot.val().name)
           }
         })
-        this.category = "Divers";
         this.amountForm = this.formBuilder.group({
           amount: ['', Validators.required],
           category: ['Divers', Validators.required]
