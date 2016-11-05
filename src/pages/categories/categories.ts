@@ -27,16 +27,16 @@ export class CategoriesPage {
     let user = this.fb.fireAuth.currentUser
     if(user!= null){
       this.uid = user.uid
-      this.loadData(this.uid)
     }
   }
 
   ionViewDidLoad() {
-    console.log('Hello Categories Page');
+    if(this.uid){
+      this.loadData(this.uid)
+    }
   }
 
   loadData(uid){
-    console.log('load user categories');
     this.fb.userCat.child(uid)
     .on('value', (snapshot)=> {
       if(snapshot.val() != null){
@@ -48,6 +48,12 @@ export class CategoriesPage {
 
       }
     });
+  }
+
+  onFocus(){
+    if(this.newCat.length >= 2){
+      this.focus = true
+    }
   }
 
   saveCategorie(){
@@ -62,17 +68,6 @@ export class CategoriesPage {
     })
   }
 
-  goBackPage(){
-    this.navCtrl.pop();
-  }
-
-  onFocus(){
-    console.log(this.newCat)
-    if(this.newCat.length >= 2){
-      this.focus = true
-    }
-
-  }
   dellCategorie(catKey:string){
     console.log('Dell new categories...');
     this.fb.userCat.child(this.uid).child(catKey).remove()
