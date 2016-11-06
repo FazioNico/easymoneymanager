@@ -23,7 +23,7 @@ export class NumberIncrement implements OnChanges{
   }
 
   ngOnChanges(changes: SimpleChanges){
-    console.log('simple change')
+    //console.log('simple change')
     this.solde = -0; // reset solde if input data === 0
     this.increment();
   }
