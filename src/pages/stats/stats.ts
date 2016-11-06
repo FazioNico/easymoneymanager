@@ -58,7 +58,7 @@ export class StatsPage {
   }
 
   ionViewDidLoad() {
-    console.log('Hello Stats Page');
+    //console.log('Hello Stats Page');
     if(this.userID){
       this.loadData(this.userID)
     }
@@ -70,7 +70,7 @@ export class StatsPage {
     this.fb.userWallet.child(uid)
     .on('value', (snapshot)=> {
       if(snapshot.val() != null){
-        console.log('load datas')
+        //console.log('load datas')
         let creditTotal:number = 0;
         let debitTotal:number = 0;
         let datas = snapshot.val();
@@ -90,7 +90,7 @@ export class StatsPage {
         this.debitTotal = +(Math.round(debitTotal*Math.pow(10,2))/Math.pow(10,2)).toFixed(2);
         this.solde = +(Math.round((Number(creditTotal) - Number(debitTotal))*Math.pow(10,2))/Math.pow(10,2)).toFixed(2)
         //console.log('true-> ', creditTotal)
-        console.log('false-> ', this.debitTotal)
+        //console.log('false-> ', this.debitTotal)
         this.hideLoading()
       }
     });
