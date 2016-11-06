@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 
 import { AddPage } from '../add/add';
@@ -22,7 +22,8 @@ export class HomePage {
   constructor(
     public navCtrl: NavController,
     public loadingCtrl: LoadingController,
-    public fb: FirebaseService
+    public fb: FirebaseService,
+    private cdRef:ChangeDetectorRef
   ) {
 
     this.title = 'Welcome to Ionic 2 RC.1 updated';
@@ -39,14 +40,6 @@ export class HomePage {
         this.loadUserSettings(this.uid);
       }
     })
-    // if (this.params.get('solde')){
-    //   console.log('params-> ',this.params.get('solde'))
-    //   this.setSolde(this.params.get('solde'))
-    // }
-    // else {
-    //   this.loadUserWallet(this.uid);
-    // }
-
   }
 
   loadUserWallet(uid){
@@ -56,18 +49,6 @@ export class HomePage {
         this.hideLoading()
       }
     })
-    // this.fb.userSolde.child(uid).on('value').then((snapshot) => {
-    //   // The Promise was "fulfilled" (it succeeded).
-    //   if(snapshot.val() != null){
-    //     this.setSolde(snapshot.val().solde)
-    //   }
-    // }, (error) => {
-    //   // The Promise was rejected.
-    //   console.info(error);
-    // })
-    // .then(()=>{
-    //   this.hideLoading()
-    // });
   }
 
   loadUserSettings(uid){
@@ -85,7 +66,19 @@ export class HomePage {
   }
 
   setSolde(amount:number){
-    this.solde = amount
+    let fps = 1000 / 60,
+        increment = (amount / 1000) * fps;
+    let timer = setInterval(() => {
+      if(this.solde < amount) {
+        this.solde += Math.round(increment);
+      } else {
+        this.solde = +parseFloat(amount.toString()).toFixed(2)
+        clearInterval(timer);
+      }
+      /* Fix bug detect propreties Changes with setInterval */
+      this.cdRef.detectChanges()
+    }, 1);
+    //this.solde = amount
     if (parseInt(this.solde.toString()) === this.solde)  {
       this.isFloat = false;
     }
