@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 
 import { FirebaseService } from '../../providers/firebase-service';
+import { NumberIncrement } from '../components/number-increment/number-increment';
 
 /*
   Generated class for the Stats page.
