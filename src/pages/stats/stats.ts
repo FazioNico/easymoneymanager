@@ -101,6 +101,10 @@ export class StatsPage {
 
   upMont(){
     if(this.month < 12){
+      this.loader = this.loadingCtrl.create({
+        content: "Chargement..."
+      });
+      this.loader.present();
       this.month = this.month + 1
       this.loadData(this.userID)
     }
@@ -111,6 +115,10 @@ export class StatsPage {
   }
   downMont(){
     if(this.month > 0){
+      this.loader = this.loadingCtrl.create({
+        content: "Chargement..."
+      });
+      this.loader.present();
       this.month = this.month - 1
       this.loadData(this.userID)
     }
