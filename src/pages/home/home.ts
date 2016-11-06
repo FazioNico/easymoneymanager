@@ -26,7 +26,13 @@ export class HomePage {
 
     this.title = 'Welcome to Ionic 2 RC.1 updated';
     this.devise = 'CHF';
-    this.uid = this.fb.fireAuth.currentUser.uid
+    this.fb.fireAuth.onAuthStateChanged((user) => {
+      if (user) {
+        this.uid = user.uid;
+        this.loadUserWallet(this.uid);
+        this.loadUserSettings(this.uid);
+      }
+    })
     // if (this.params.get('solde')){
     //   console.log('params-> ',this.params.get('solde'))
     //   this.setSolde(this.params.get('solde'))
@@ -35,8 +41,6 @@ export class HomePage {
     //   this.loadUserWallet(this.uid);
     // }
 
-    this.loadUserWallet(this.uid);
-    this.loadUserSettings(this.uid);
   }
 
   loadUserWallet(uid){
