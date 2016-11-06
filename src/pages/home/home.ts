@@ -1,9 +1,10 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 
 import { AddPage } from '../add/add';
 import { HistoryPage } from '../history/history';
 import { FirebaseService } from '../../providers/firebase-service';
+import { NumberIncrement } from '../components/number-increment/number-increment';
 
 @Component({
   selector: 'page-home',
@@ -13,7 +14,7 @@ export class HomePage {
 
   uid: number;
   title: string;
-  solde: number = 0;
+  solde: number;
   devise: string;
   isFloat: boolean = true;
   isBlur:boolean = false;
@@ -22,8 +23,7 @@ export class HomePage {
   constructor(
     public navCtrl: NavController,
     public loadingCtrl: LoadingController,
-    public fb: FirebaseService,
-    private cdRef:ChangeDetectorRef
+    public fb: FirebaseService
   ) {
 
     this.title = 'Welcome to Ionic 2 RC.1 updated';
@@ -66,19 +66,7 @@ export class HomePage {
   }
 
   setSolde(amount:number){
-    let fps = 1000 / 60,
-        increment = (amount / 1000) * fps;
-    let timer = setInterval(() => {
-      if(this.solde < amount) {
-        this.solde += Math.round(increment);
-      } else {
-        this.solde = +parseFloat(amount.toString()).toFixed(2)
-        clearInterval(timer);
-      }
-      /* Fix bug detect propreties Changes with setInterval */
-      this.cdRef.detectChanges()
-    }, 1);
-    //this.solde = amount
+    this.solde = amount
     if (parseInt(this.solde.toString()) === this.solde)  {
       this.isFloat = false;
     }

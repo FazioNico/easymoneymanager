@@ -11,6 +11,7 @@ import { HistoryPage } from '../pages/history/history';
 import { SettingsPage } from '../pages/settings/settings';
 import { CategoriesPage } from '../pages/categories/categories';
 import { TabsPage } from '../pages/tabs/tabs';
+import { NumberIncrement } from '../components/number-increment/number-increment';
 
 import { FirebaseService } from '../providers/firebase-service';
 
@@ -24,7 +25,8 @@ import { FirebaseService } from '../providers/firebase-service';
     HistoryPage,
     SettingsPage,
     CategoriesPage,
-    TabsPage
+    TabsPage,
+    NumberIncrement
   ],
   imports: [
     IonicModule.forRoot(MyApp, {

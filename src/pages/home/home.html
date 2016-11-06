@@ -17,7 +17,7 @@
   <div class="displayTable">
     <div class="cellTable">
       <div text-center>
-        <h1 class="soldeAmount" >{{devise}} {{solde }}<span *ngIf="isFloat === false">.-</span></h1>
+        <h1 class="soldeAmount" >{{devise}} <nbrInc [inputData]="solde"></nbrInc><span *ngIf="isFloat === false">.-</span></h1>
       </div>
 
       <div text-center>
