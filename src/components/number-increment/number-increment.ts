@@ -1,4 +1,5 @@
-import { Component, Input, ChangeDetectorRef, OnChanges } from '@angular/core';
+import { Component, Input, ChangeDetectorRef, OnChanges, SimpleChanges } from '@angular/core';
+//import { IONIC_DIRECTIVES } from 'ionic-angular';
 
 /*
   Generated class for the NumberIncrement component.
@@ -18,10 +19,11 @@ export class NumberIncrement implements OnChanges{
   constructor(
     private cdRef:ChangeDetectorRef
   ) {
+    //this.increment();
   }
 
-  ngOnChanges(){
-    console.log('ngOnChanges ->',this.inputData)
+  ngOnChanges(changes: SimpleChanges){
+    console.log('simple change')
     this.increment();
   }
 

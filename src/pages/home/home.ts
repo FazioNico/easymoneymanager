@@ -4,7 +4,6 @@ import { NavController, LoadingController } from 'ionic-angular';
 import { AddPage } from '../add/add';
 import { HistoryPage } from '../history/history';
 import { FirebaseService } from '../../providers/firebase-service';
-import { NumberIncrement } from '../components/number-increment/number-increment';
 
 @Component({
   selector: 'page-home',
