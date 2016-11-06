@@ -43,6 +43,11 @@ export class HistoryPage {
 
   /* Core Methode */
   loadHistoryWallet(uid:number){
+    this.loader = this.loadCtrl.create({
+      content: "Chargement..."
+    });
+    this.loader.present();
+
     this.userWallet = this.fb.userWallet.child(uid).limitToLast(this.nbr);
     this.userWallet.on('value', (snapshot)=> {
       if(snapshot.val() != null){
@@ -54,6 +59,7 @@ export class HistoryPage {
         })
         let arrayValSortedBy:any[] = this.sortObj(arrayVal, 'timestamp');
         this.wallet = arrayValSortedBy.reverse();
+        this.hideLoading()
       }
     });
   }
@@ -123,5 +129,9 @@ export class HistoryPage {
   loadMore(event){
     this.nbr = this.nbr + 10
     this.loadHistoryWallet(this.uid)
+  }
+
+  private hideLoading(){
+    this.loader.dismiss();
   }
 }
