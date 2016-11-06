@@ -36,8 +36,12 @@ export class NumberIncrement implements OnChanges{
         if(this.solde < this.inputData) {
           this.solde += Math.round(increment);
         } else {
-
-          this.solde = +parseFloat(this.inputData.toString()).toFixed(2)
+          if(Number.isInteger(parseFloat(this.inputData))){
+            this.solde = parseFloat(this.inputData.toFixed(2))
+          }
+          else {
+            this.solde = this.inputData.toFixed(2)
+          }
           clearInterval(timer);
         }
         /* Fix bug detect propreties Changes with setInterval */
