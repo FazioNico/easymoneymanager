@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import {Validators, FormBuilder } from '@angular/forms';
 
 import { FirebaseService } from '../../providers/firebase-service';
@@ -19,10 +19,12 @@ export class AddPage {
   amountForm:any;
   user:any;
   category: string = "Divers";
-  catData:string[] = []
+  catData:string[] = [];
+  loader:any;
 
   constructor(
     public navCtrl: NavController,
+    public loadingCtrl: LoadingController,
     public params: NavParams,
     private formBuilder: FormBuilder,
     public fb: FirebaseService
@@ -31,6 +33,10 @@ export class AddPage {
     let user = this.fb.fireAuth.currentUser
     if(user){
       this.user = user;
+      this.loader = this.loadingCtrl.create({
+        content: "Chargement..."
+      });
+      this.loader.present();
       this.loadData()
     }
   }
@@ -50,6 +56,7 @@ export class AddPage {
           amount: ['', Validators.required],
           category: ['Divers', Validators.required]
         });
+        this.hideLoading()
       }
     });
   }
@@ -95,5 +102,9 @@ export class AddPage {
       amount: ['', Validators.required],
       category: ['Divers', Validators.required]
     });
+  }
+
+  private hideLoading(){
+    this.loader.dismiss();
   }
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 
 import { AddPage } from '../add/add';
 import { HistoryPage } from '../history/history';
@@ -16,11 +16,12 @@ export class HomePage {
   solde: number = 0;
   devise: string;
   isFloat: boolean = true;
-  isBlur:boolean = false
+  isBlur:boolean = false;
+  loader:any;
 
   constructor(
     public navCtrl: NavController,
-    public params: NavParams,
+    public loadingCtrl: LoadingController,
     public fb: FirebaseService
   ) {
 
@@ -28,6 +29,11 @@ export class HomePage {
     this.devise = 'CHF';
     this.fb.fireAuth.onAuthStateChanged((user) => {
       if (user) {
+        this.loader = this.loadingCtrl.create({
+          content: "Chargement..."
+        });
+        this.loader.present();
+
         this.uid = user.uid;
         this.loadUserWallet(this.uid);
         this.loadUserSettings(this.uid);
@@ -44,12 +50,24 @@ export class HomePage {
   }
 
   loadUserWallet(uid){
-    this.fb.userSolde.child(uid)
-    .on('value', (snapshot)=> {
+    this.fb.userSolde.child(uid).on('value', (snapshot)=> {
       if(snapshot.val() != null){
         this.setSolde(snapshot.val().solde)
+        this.hideLoading()
       }
-    });
+    })
+    // this.fb.userSolde.child(uid).on('value').then((snapshot) => {
+    //   // The Promise was "fulfilled" (it succeeded).
+    //   if(snapshot.val() != null){
+    //     this.setSolde(snapshot.val().solde)
+    //   }
+    // }, (error) => {
+    //   // The Promise was rejected.
+    //   console.info(error);
+    // })
+    // .then(()=>{
+    //   this.hideLoading()
+    // });
   }
 
   loadUserSettings(uid){
@@ -101,5 +119,9 @@ export class HomePage {
     this.fb.userProfile.child(this.uid).update({
       blur: !this.isBlur
     })
+  }
+
+  private hideLoading(){
+    this.loader.dismiss();
   }
 }

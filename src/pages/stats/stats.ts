@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 
 import { FirebaseService } from '../../providers/firebase-service';
 
@@ -23,14 +23,20 @@ export class StatsPage {
   nowMonth:number = new Date().getMonth();
   year:number = new Date().getFullYear()
   monthName:string[];
+  loader:any;
 
   constructor(
     public navCtrl: NavController,
+    public loadingCtrl: LoadingController,
     public fb: FirebaseService
   ) {
     let user = this.fb.fireAuth.currentUser
     if(user!= null){
       this.userID = user.uid
+      this.loader = this.loadingCtrl.create({
+        content: "Chargement..."
+      });
+      this.loader.present();
     }
 
     this.month = new Date().getMonth()
@@ -84,6 +90,7 @@ export class StatsPage {
         this.solde = +(Math.round((Number(creditTotal) - Number(debitTotal))*Math.pow(10,2))/Math.pow(10,2)).toFixed(2)
         //console.log('true-> ', creditTotal)
         console.log('false-> ', this.debitTotal)
+        this.hideLoading()
       }
     });
   }
@@ -111,5 +118,9 @@ export class StatsPage {
     //   this.month = 12
     //   this.year = this.year - 1
     // }
+  }
+
+  private hideLoading(){
+    this.loader.dismiss();
   }
 }
