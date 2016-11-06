@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { App, NavController } from 'ionic-angular';
 
+import { LoginPage } from '../login/login';
 import { CategoriesPage } from '../categories/categories';
 import { FirebaseService } from '../../providers/firebase-service';
 
@@ -21,7 +22,8 @@ export class SettingsPage {
 
   constructor(
     public navCtrl: NavController,
-    public fb: FirebaseService
+    public fb: FirebaseService,
+    private app: App
   ) {
     this.fb.fireAuth.onAuthStateChanged((user)=> {
         if (user) {
@@ -45,10 +47,13 @@ export class SettingsPage {
   }
 
   logout(){
-    this.fb.fireAuth.signOut().then(function() {
+    const root = this.app.getRootNav()
+    //this.navCtrl.setRoot(LoginPage);
+    this.fb.fireAuth.signOut().then(() =>{
       // Sign-out successful.
       console.log('user logout')
-    }, function(error) {
+      root.setRoot(LoginPage);
+    }, (error) => {
       // An error happened.
       console.log('Error with user logout')
     });
