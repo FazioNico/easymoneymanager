@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 
 import { FirebaseService } from '../../providers/firebase-service';
 
@@ -19,19 +19,25 @@ export class CategoriesPage {
   categories:any[] = [];
   focus: boolean = false;
   newCat: string;
+  loader:any;
 
   constructor(
     public navCtrl: NavController,
+    public loadingCtrl: LoadingController,
     public fb: FirebaseService
   ) {
     let user = this.fb.fireAuth.currentUser
     if(user!= null){
       this.uid = user.uid
+      this.loader = this.loadingCtrl.create({
+        content: "Chargement..."
+      });
     }
   }
 
   ionViewDidLoad() {
     if(this.uid){
+      this.loader.present();
       this.loadData(this.uid)
     }
   }
@@ -45,7 +51,7 @@ export class CategoriesPage {
           //console.log(childSnapshot.val())
           this.categories.push(childSnapshot)
         })
-
+        this.hideLoading()
       }
     });
   }
@@ -77,4 +83,8 @@ export class CategoriesPage {
     console.log(catKey)
   }
 
+  private hideLoading(){
+    this.loader.dismiss();
+  }
+  
 }
