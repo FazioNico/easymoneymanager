@@ -145,24 +145,25 @@ export class StatsPage {
         dataReadyFalse = {};
     Object.keys(datas).map((key) =>{
       if(datas[key].timestamp > dateMin.getTime() && datas[key].timestamp < dateMax.getTime()){
+        let catReady = datas[key].category;
         switch (datas[key].status){
           case true:
-            if(dataReadyTrue[datas[key].category]){
-              dataReadyTrue[datas[key].category] = dataReadyTrue[datas[key].category] + datas[key].price
+            if(dataReadyTrue[catReady]){
+              dataReadyTrue[catReady] = parseFloat((dataReadyTrue[catReady] + datas[key].price).toFixed(2))
             }
             else {
-              if(datas[key].category){
-                dataReadyTrue[datas[key].category] = datas[key].price
+              if(catReady){
+                dataReadyTrue[catReady] = datas[key].price
               }
 
             }
             break;
           case false:
-            if(dataReadyFalse[datas[key].category]){
-              dataReadyFalse[datas[key].category] = dataReadyFalse[datas[key].category] + datas[key].price
+            if(dataReadyFalse[catReady]){
+              dataReadyFalse[catReady] = parseFloat((dataReadyFalse[catReady] + datas[key].price).toFixed(2))
             }
             else {
-              dataReadyFalse[datas[key].category] = datas[key].price
+              dataReadyFalse[catReady] = datas[key].price
             }
           break;
         }

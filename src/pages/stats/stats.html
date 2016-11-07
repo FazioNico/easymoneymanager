@@ -7,7 +7,7 @@
 <ion-header >
   <ion-navbar color="primary">
     <ion-title>
-      Statistiques
+      Statistiques {{monthName[month]}}
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -50,10 +50,10 @@
         <hr/>
         <ion-list inset>
           <ion-item>
-            <span class="amount total">Solde du moi</span>
+            <span class="amount total">Solde du mois</span>
           </ion-item>
           <ion-item>
-            <span class=" total">Reste</span>
+            <span class=" total">Total</span>
             <span class=" total" item-right>CHF <nbrInc [inputData]="solde"></nbrInc></span>
           </ion-item>
         </ion-list>
