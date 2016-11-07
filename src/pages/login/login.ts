@@ -20,6 +20,7 @@ import { FirebaseService } from '../../providers/firebase-service';
 export class LoginPage {
 
   user:any;
+  login:number = 0;
   loader:any;
 
   constructor(
@@ -35,7 +36,11 @@ export class LoginPage {
         console.log("goto TabsPage ->", user);
         //this.loadUserWallet(user.uid)
         this.navCtrl.setRoot(TabsPage);
-      } 
+      }
+      else {
+        this.login = 1;
+      }
+
     });
 
   }

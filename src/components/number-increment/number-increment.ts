@@ -45,7 +45,8 @@ export class NumberIncrement implements OnChanges{
           clearInterval(timer);
         }
         /* Fix bug detect propreties Changes with setInterval */
-        this.cdRef.detectChanges()
+        //this.cdRef.detectChanges() /*  detectChanges() cause error on longin user ???
+        this.cdRef.markForCheck() // this on don't mek troubles..
       }, 1);
     }
   }

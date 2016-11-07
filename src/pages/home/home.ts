@@ -27,13 +27,13 @@ export class HomePage {
 
     this.title = 'Welcome to Ionic 2 RC.1 updated';
     this.devise = 'CHF';
+    this.loader = this.loadingCtrl.create({
+      content: "Chargement..."
+    });
+    this.loader.present();
+
     this.fb.fireAuth.onAuthStateChanged((user) => {
       if (user) {
-        this.loader = this.loadingCtrl.create({
-          content: "Chargement..."
-        });
-        this.loader.present();
-
         this.uid = user.uid;
         this.loadUserWallet(this.uid);
         this.loadUserSettings(this.uid);
