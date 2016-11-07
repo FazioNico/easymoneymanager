@@ -18,20 +18,48 @@
       <div text-center >
         <p color="gray-darken">période du <br />01/{{month+1}}/{{year}} au {{daysInMonth(month+1)}}/{{month+1}}/{{year}}</p>
       </div>
-      <ion-list no-lines>
-        <ion-item>
-          Revenus:
-          <span class="amount" item-right>CHF <nbrInc [inputData]="creditTotal"></nbrInc></span>
-        </ion-item>
-        <ion-item>
-          Dépenses:
-          <span class="amount" item-right>CHF <nbrInc [inputData]="debitTotal"></nbrInc></span>
-        </ion-item>
-        <ion-item>
-          <span class="total">Solde:</span>
-          <span class="amount total" item-right>CHF <nbrInc [inputData]="solde"></nbrInc></span>
-        </ion-item>
-      </ion-list>
+
+      <div *ngIf="depRevByCat">
+        <ion-list inset>
+          <ion-item>
+            <span class="amount total">Dépences</span>
+          </ion-item>
+          <ion-item *ngFor="let cat of keys('depense')">
+          {{ cat }}
+          <span item-right>CHF {{depRevByCat.depense[cat]}}</span>
+          </ion-item>
+          <ion-item>
+            <span class=" total">Total</span>
+            <span class=" total" item-right>CHF <nbrInc [inputData]="debitTotal"></nbrInc></span>
+          </ion-item>
+        </ion-list>
+        <hr/>
+        <ion-list inset>
+          <ion-item>
+            <span class="amount total">Revenu</span>
+          </ion-item>
+          <ion-item  *ngFor="let cat of keys('revenu')">
+            {{ cat }}
+            <span item-right>CHF {{depRevByCat.revenu[cat]}}</span>
+          </ion-item>
+          <ion-item>
+            <span class=" total">Total</span>
+            <span class=" total" item-right>CHF <nbrInc [inputData]="creditTotal"></nbrInc></span>
+          </ion-item>
+        </ion-list>
+        <hr/>
+        <ion-list inset>
+          <ion-item>
+            <span class="amount total">Solde du moi</span>
+          </ion-item>
+          <ion-item>
+            <span class=" total">Reste</span>
+            <span class=" total" item-right>CHF <nbrInc [inputData]="solde"></nbrInc></span>
+          </ion-item>
+        </ion-list>
+
+      </div>
+
       <div padding text-center>
         <ion-badge (click)="downMont()" item-right *ngIf="month > 0">< {{monthName[month - 1]}} </ion-badge>
         <ion-badge (click)="upMont()" item-right *ngIf="month < nowMonth">{{monthName[month+1]}} ></ion-badge>

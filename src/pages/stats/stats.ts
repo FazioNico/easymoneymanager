@@ -19,6 +19,7 @@ export class StatsPage {
   creditTotal:number;
   debitTotal:number;
   solde:number;
+  depRevByCat:any;
   month:number;
   nowMonth:number = new Date().getMonth();
   year:number = new Date().getFullYear()
@@ -74,12 +75,16 @@ export class StatsPage {
       let dataReadyFalse = {};
       let datas = snapshot.val();
       this.getDepRevByAmount(datas,dateMin,dateMax);
-      let getDepRevByCat = this.getDepRevByCat(datas,dateMin,dateMax);
+      this.depRevByCat = this.getDepRevByCat(datas,dateMin,dateMax);
+      //this.depRevByCat = this.depRevByCat.json();
       this.hideLoading()
       //let dataReady = arrayReady.sort((a, b) => a.category.localeCompare(b.category));
-      console.log('dataReadyAll-> ',getDepRevByCat)
+      console.log('dataReadyAll-> ',this.depRevByCat)
       //console.log('arrayReady-> ',arrayReady)
     })
+  }
+  keys(keyName) : Array<string> {
+    return Object.keys(this.depRevByCat[keyName]);
   }
 
   daysInMonth(month) {
@@ -146,7 +151,10 @@ export class StatsPage {
               dataReadyTrue[datas[key].category] = dataReadyTrue[datas[key].category] + datas[key].price
             }
             else {
-              dataReadyTrue[datas[key].category] = datas[key].price
+              if(datas[key].category){
+                dataReadyTrue[datas[key].category] = datas[key].price
+              }
+
             }
             break;
           case false:
