@@ -1,4 +1,15 @@
 page-login {
+
+  .displayTable {
+    display:table;
+    width: 100%;
+    height: 100%;
+  }
+  .cellTable {
+    display: table-cell;
+    vertical-align: middle;
+  }
+  
   .content-md, .item-md {
     background: $text-color;
     color: #fff;

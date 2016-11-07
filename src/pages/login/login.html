@@ -6,9 +6,8 @@
 -->
 
 <ion-content padding>
-  <div text-center *ngIf="login === 1">
-      <div class="table">
-        <div class="table-cell">
+      <div class="displayTable" text-center *ngIf="login === 1">
+        <div class="cellTable">
 
           <h1 primary text-center>Easy Money Manager</h1>
           <p primary text-center>Connecte toi à ton compte pour pouvoir utiliser l'application</p>
@@ -27,6 +26,7 @@
 
             <div padding>
               <button ion-button round  type="submit" (click)="logForm()" [disabled]="!user.valid" color="withe">Login</button>
+              <br/>
               <button ion-button round  (click)="goToSignup()" [disabled]="!user.valid" color="withe">New Account</button>
             </div>
           </form>
@@ -34,5 +34,4 @@
         </div>
       </div>
 
-  </div>
 </ion-content>
