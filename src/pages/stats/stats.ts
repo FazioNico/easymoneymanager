@@ -60,39 +60,26 @@ export class StatsPage {
     //console.log('Hello Stats Page');
     if(this.userID){
       this.loadData(this.userID)
+      //this.ltest(this.userID)
     }
   }
-
   loadData(uid){
     let dateMin = new Date(this.year, this.month, 1)
     let dateMax = new Date(this.year, this.month, 31)
-    this.fb.userWallet.child(uid)
-    .on('value', (snapshot)=> {
-      if(snapshot.val() != null){
-        //console.log('load datas')
-        let creditTotal:number = 0;
-        let debitTotal:number = 0;
-        let datas = snapshot.val();
-        Object.keys(datas).map((key) =>{
-          if(datas[key].timestamp > dateMin.getTime() && datas[key].timestamp < dateMax.getTime()){
-            switch (datas[key].status) {
-              case true:
-                creditTotal = Number(creditTotal) + Number(datas[key].price)
-                break;
-              case false:
-                debitTotal = Number(debitTotal) + Number(datas[key].price)
-                break;
-            }
-          }
-        });
-        this.creditTotal = +(Math.round(creditTotal*Math.pow(10,2))/Math.pow(10,2)).toFixed(2);
-        this.debitTotal = +(Math.round(debitTotal*Math.pow(10,2))/Math.pow(10,2)).toFixed(2);
-        this.solde = +(Math.round((Number(creditTotal) - Number(debitTotal))*Math.pow(10,2))/Math.pow(10,2)).toFixed(2)
-        //console.log('true-> ', creditTotal)
-        //console.log('false-> ', this.debitTotal)
-        this.hideLoading()
-      }
-    });
+    let test = this.fb.userWallet.child(uid)
+    test.on('value', (snapshot) => {
+      //console.log('test-> ',snapshot.val())
+
+      let dataReadyTrue = {};
+      let dataReadyFalse = {};
+      let datas = snapshot.val();
+      this.getDepRevByAmount(datas,dateMin,dateMax);
+      let getDepRevByCat = this.getDepRevByCat(datas,dateMin,dateMax);
+      this.hideLoading()
+      //let dataReady = arrayReady.sort((a, b) => a.category.localeCompare(b.category));
+      console.log('dataReadyAll-> ',getDepRevByCat)
+      //console.log('arrayReady-> ',arrayReady)
+    })
   }
 
   daysInMonth(month) {
@@ -126,6 +113,54 @@ export class StatsPage {
     //   this.month = 12
     //   this.year = this.year - 1
     // }
+  }
+
+  getDepRevByAmount(datas,dateMin,dateMax){
+
+    let creditTotal:number = 0,
+        debitTotal:number = 0;
+    Object.keys(datas).map((key) =>{
+      if(datas[key].timestamp > dateMin.getTime() && datas[key].timestamp < dateMax.getTime()){
+        switch (datas[key].status) {
+          case true:
+            creditTotal = Number(creditTotal) + Number(datas[key].price)
+            break;
+          case false:
+            debitTotal = Number(debitTotal) + Number(datas[key].price)
+            break;
+        }
+      }
+    });
+    this.creditTotal = +(Math.round(creditTotal*Math.pow(10,2))/Math.pow(10,2)).toFixed(2);
+    this.debitTotal = +(Math.round(debitTotal*Math.pow(10,2))/Math.pow(10,2)).toFixed(2);
+    this.solde = +(Math.round((Number(creditTotal) - Number(debitTotal))*Math.pow(10,2))/Math.pow(10,2)).toFixed(2)
+  }
+  getDepRevByCat(datas,dateMin,dateMax){
+    let dataReadyTrue = {},
+        dataReadyFalse = {};
+    Object.keys(datas).map((key) =>{
+      if(datas[key].timestamp > dateMin.getTime() && datas[key].timestamp < dateMax.getTime()){
+        switch (datas[key].status){
+          case true:
+            if(dataReadyTrue[datas[key].category]){
+              dataReadyTrue[datas[key].category] = dataReadyTrue[datas[key].category] + datas[key].price
+            }
+            else {
+              dataReadyTrue[datas[key].category] = datas[key].price
+            }
+            break;
+          case false:
+            if(dataReadyFalse[datas[key].category]){
+              dataReadyFalse[datas[key].category] = dataReadyFalse[datas[key].category] + datas[key].price
+            }
+            else {
+              dataReadyFalse[datas[key].category] = datas[key].price
+            }
+          break;
+        }
+      }
+    });
+    return {'revenu': dataReadyTrue, 'depense': dataReadyFalse};
   }
 
   private hideLoading(){
