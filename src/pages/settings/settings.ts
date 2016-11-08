@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { App, NavController } from 'ionic-angular';
+import { App, NavController, ModalController } from 'ionic-angular';
 
 import { LoginPage } from '../login/login';
 import { CategoriesPage } from '../categories/categories';
@@ -19,9 +19,11 @@ export class SettingsPage {
 
   userName:string;
   email:string;
+  devise:string;
 
   constructor(
     public navCtrl: NavController,
+    public modalCtrl: ModalController,
     public fb: FirebaseService,
     private app: App
   ) {
@@ -39,6 +41,12 @@ export class SettingsPage {
     this.fb.userProfile.child(user.uid)
     .on('value', (snapshot)=> {
       this.email = snapshot.val().email
+      if(snapshot.val().devise){
+        this.devise = snapshot.val().devise
+      }
+      else {
+        this.devise = 'CHF';
+      }
     });
   }
 
@@ -57,6 +65,12 @@ export class SettingsPage {
       // An error happened.
       console.log('Error with user logout')
     });
+  }
+
+  changeDevise(){
+    console.log('changeDevise')
+    let modal = this.modalCtrl.create(CategoriesPage);
+    modal.present();
   }
 
 }
