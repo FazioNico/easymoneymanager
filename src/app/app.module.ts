@@ -12,6 +12,7 @@ import { SettingsPage } from '../pages/settings/settings';
 import { CategoriesPage } from '../pages/categories/categories';
 import { TabsPage } from '../pages/tabs/tabs';
 import { NumberIncrement } from '../components/number-increment/number-increment';
+import { ModalCurrencyPage } from '../components/modal-currency-page/modal-currency-page';
 
 import { FirebaseService } from '../providers/firebase-service';
 
@@ -26,7 +27,8 @@ import { FirebaseService } from '../providers/firebase-service';
     SettingsPage,
     CategoriesPage,
     TabsPage,
-    NumberIncrement
+    NumberIncrement,
+    ModalCurrencyPage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -44,7 +46,8 @@ import { FirebaseService } from '../providers/firebase-service';
     HistoryPage,
     SettingsPage,
     CategoriesPage,
-    TabsPage
+    TabsPage,
+    ModalCurrencyPage
   ],
   providers: [
     FirebaseService

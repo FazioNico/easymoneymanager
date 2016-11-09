@@ -1,0 +1,19 @@
+modal-currency-page {
+  .displayTable {
+    display:table;
+    width: 100%;
+    height: 100%;
+  }
+  .cellTable {
+    display: table-cell;
+    vertical-align: middle;
+  }
+  input {
+    text-align: center;
+    font-size:  4.2rem;
+    text-transform: uppercase;
+    border-bottom: 1px solid #f27757 !important;
+    max-width: 150px;
+    margin: auto;
+  }
+}

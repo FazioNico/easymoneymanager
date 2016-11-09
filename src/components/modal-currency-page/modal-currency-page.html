@@ -1,0 +1,32 @@
+<!--
+  Generated template for the ModalCurrencyPage component.
+
+  See https://angular.io/docs/ts/latest/api/core/index/ComponentMetadata-class.html
+  for more info on Angular 2 Components.
+-->
+
+<ion-header >
+  <ion-navbar color="primary">
+    <ion-title>
+      Devise
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <ion-icon name="md-close" ></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content text-center>
+  <div *ngIf="user" class="displayTable">
+    <div class="cellTable">
+      <p>Choix de la devise</p>
+      <ion-input  type="text" [value]="devise" [(ngModel)]="devise"></ion-input>
+      <br />
+      <button ion-button (click)=saveData()>modifier</button>
+    </div>
+  </div>
+
+
+</ion-content>

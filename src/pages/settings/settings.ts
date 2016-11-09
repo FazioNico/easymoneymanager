@@ -3,6 +3,8 @@ import { App, NavController, ModalController } from 'ionic-angular';
 
 import { LoginPage } from '../login/login';
 import { CategoriesPage } from '../categories/categories';
+import { ModalCurrencyPage } from '../../components/modal-currency-page/modal-currency-page';
+
 import { FirebaseService } from '../../providers/firebase-service';
 
 /*
@@ -68,8 +70,8 @@ export class SettingsPage {
   }
 
   changeDevise(){
-    console.log('changeDevise')
-    let modal = this.modalCtrl.create(CategoriesPage);
+    //console.log('changeDevise')
+    let modal = this.modalCtrl.create(ModalCurrencyPage);
     modal.present();
   }
 
