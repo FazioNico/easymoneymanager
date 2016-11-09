@@ -83,7 +83,7 @@ export class HomePage {
         this.navCtrl.push(AddPage, {solde: this.solde});
         break;
       case 'history':
-        this.navCtrl.push(HistoryPage, {userID: this.uid, userSolde: this.solde});
+        this.navCtrl.push(HistoryPage, {userID: this.uid, userSolde: this.solde, devise: this.devise});
         break;
 
     }

@@ -20,8 +20,8 @@
       <ion-item>
         <h2 color="gray-darken">{{cvtTimestamp(entry.timestamp)}}</h2>
         <p color="gray">{{entry.category}}</p>
-        <span *ngIf="entry.status === true" item-right color="secondary">+ CHF {{setSolde(entry.price) }}</span>
-        <span *ngIf="entry.status === false" item-right>- CHF {{setSolde(entry.price) }}</span>
+        <span *ngIf="entry.status === true" item-right color="secondary">+ {{devise}} {{setSolde(entry.price) }}</span>
+        <span *ngIf="entry.status === false" item-right>- {{devise}} {{setSolde(entry.price) }}</span>
       </ion-item>
       <ion-item-options side="right">
         <button ion-button (click)="dellEntry($event,entry.id,entry.status,entry.price)" color="primary">

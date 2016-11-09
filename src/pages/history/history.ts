@@ -19,6 +19,7 @@ export class HistoryPage {
 
   uid: number;
   solde: number;
+  devise: string;
   wallet: any;
   userWallet:any;
   nbr:number = 10
@@ -34,6 +35,7 @@ export class HistoryPage {
       console.log('params-> userID:',this.params.get('userID'))
       this.uid = this.params.get('userID')
       this.solde = this.params.get('userSolde')
+      this.devise = this.params.get('devise')
       this.loadHistoryWallet(this.uid);
     }
     else {
