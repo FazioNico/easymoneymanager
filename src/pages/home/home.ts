@@ -60,6 +60,12 @@ export class HomePage {
       else {
         this.isBlur = false
       }
+      if(snapshot.val().devise){
+        this.devise = snapshot.val().devise
+      }
+      else {
+        this.devise = 'CHF+';
+      }
       (this.isBlur === true) ?  document.querySelector('h1').classList.add("blur") : document.querySelector('h1').classList.remove("blur");
     });
   }
