@@ -18,6 +18,7 @@ export class AddPage {
 
   amountForm:any;
   user:any;
+  devise:string;
   category: string = "Divers";
   catData:string[] = [];
   loader:any;
@@ -29,7 +30,8 @@ export class AddPage {
     private formBuilder: FormBuilder,
     public fb: FirebaseService
   ) {
-    console.log(this.params.get('solde'))
+    //console.log(this.params.get('solde'))
+    //console.log(this.params.get('devise'))
     let user = this.fb.fireAuth.currentUser
     if(user){
       this.user = user;
@@ -39,6 +41,7 @@ export class AddPage {
       this.loader.present();
       this.loadData()
     }
+    this.devise = this.params.get('devise')
   }
 
   loadData(){

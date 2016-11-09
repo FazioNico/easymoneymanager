@@ -80,7 +80,7 @@ export class HomePage {
   goToLink(event,page){
     switch (page) {
       case 'add':
-        this.navCtrl.push(AddPage, {solde: this.solde});
+        this.navCtrl.push(AddPage, {solde: this.solde, devise: this.devise});
         break;
       case 'history':
         this.navCtrl.push(HistoryPage, {userID: this.uid, userSolde: this.solde, devise: this.devise});

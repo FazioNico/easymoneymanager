@@ -20,8 +20,8 @@
       <form [formGroup]="amountForm">
         <div class="divInput">
           <ion-item>
-            <ion-label>CHF</ion-label>
-            <ion-input type="number" step="0.05" min="0" formControlName="amount" required></ion-input>
+            <ion-label>{{devise}}</ion-label>
+            <ion-input type="number" step="0.01" min="0" formControlName="amount" required></ion-input>
           </ion-item>
         </div>
         <ion-item>
