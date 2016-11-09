@@ -19,11 +19,13 @@ export class StatsPage {
   creditTotal:number;
   debitTotal:number;
   solde:number;
+  devise:string = 'CHF';
   depRevByCat:any;
   month:number;
   nowMonth:number = new Date().getMonth();
   year:number = new Date().getFullYear()
   monthName:string[];
+  isBlur:boolean = false;
   loader:any;
 
   constructor(
@@ -60,10 +62,29 @@ export class StatsPage {
   ionViewDidLoad() {
     //console.log('Hello Stats Page');
     if(this.userID){
+      this.loadUserData(this.userID)
       this.loadData(this.userID)
       //this.ltest(this.userID)
     }
   }
+
+  loadUserData(uid){
+    this.fb.userProfile.child(uid)
+    .on('value', (snapshot)=> {
+      console.log(snapshot.val())
+      if(snapshot.val() != null || snapshot.val().blur){
+        this.isBlur = snapshot.val().blur
+      }
+      else {
+        this.isBlur = false
+      }
+      if(snapshot.val().devise){
+        this.devise = snapshot.val().devise
+      }
+      (this.isBlur === true) ?  document.querySelector('h1').classList.add("blur") : document.querySelector('h1').classList.remove("blur");
+    });
+  }
+
   loadData(uid){
     let dateMin = new Date(this.year, this.month, 1)
     let dateMax = new Date(this.year, this.month, 31)

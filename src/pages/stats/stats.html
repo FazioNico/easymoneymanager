@@ -26,11 +26,11 @@
           </ion-item>
           <ion-item *ngFor="let cat of keys('depense')">
           {{ cat }}
-          <span item-right>CHF {{depRevByCat.depense[cat]}}</span>
+          <span item-right>{{devise}} {{depRevByCat.depense[cat]}}</span>
           </ion-item>
           <ion-item>
             <span class=" total">Total</span>
-            <span class=" total" item-right>CHF <nbrInc [inputData]="debitTotal"></nbrInc></span>
+            <span class=" total" item-right>{{devise}} <nbrInc [inputData]="debitTotal"></nbrInc></span>
           </ion-item>
         </ion-list>
         <hr/>
@@ -40,11 +40,11 @@
           </ion-item>
           <ion-item  *ngFor="let cat of keys('revenu')">
             {{ cat }}
-            <span item-right>CHF {{depRevByCat.revenu[cat]}}</span>
+            <span item-right>{{devise}} {{depRevByCat.revenu[cat]}}</span>
           </ion-item>
           <ion-item>
             <span class=" total">Total</span>
-            <span class=" total" item-right>CHF <nbrInc [inputData]="creditTotal"></nbrInc></span>
+            <span class=" total" item-right>{{devise}} <nbrInc [inputData]="creditTotal"></nbrInc></span>
           </ion-item>
         </ion-list>
         <hr/>
@@ -54,7 +54,7 @@
           </ion-item>
           <ion-item>
             <span class=" total">Total</span>
-            <span class=" total" item-right>CHF <nbrInc [inputData]="solde"></nbrInc></span>
+            <span class=" total" item-right>{{devise}} <nbrInc [inputData]="solde"></nbrInc></span>
           </ion-item>
         </ion-list>
 

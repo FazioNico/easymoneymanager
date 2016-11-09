@@ -14,7 +14,7 @@ export class HomePage {
   uid: number;
   title: string;
   solde: number;
-  devise: string;
+  devise: string = 'CHF';
   isFloat: boolean = true;
   isBlur:boolean = false;
   loader:any;
@@ -62,9 +62,6 @@ export class HomePage {
       }
       if(snapshot.val().devise){
         this.devise = snapshot.val().devise
-      }
-      else {
-        this.devise = 'CHF+';
       }
       (this.isBlur === true) ?  document.querySelector('h1').classList.add("blur") : document.querySelector('h1').classList.remove("blur");
     });
