@@ -49,6 +49,8 @@ export class ModalCurrencyPage {
     if(this.devise.length >= 1){
       this.fb.userProfile.child(this.user.uid).update({
         devise: this.devise.toUpperCase()
+      }).then(()=>{
+        this.dismiss()
       })
     }
   }
