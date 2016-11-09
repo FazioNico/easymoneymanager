@@ -32,8 +32,8 @@ export class HistoryPage {
     public fb: FirebaseService
   ) {
     if (this.params.get('userID') && this.params.get('userSolde')){
-      console.log('params-> userID:',this.params.get('userID'))
-      console.log('params-> devise:',this.params.get('devise'))
+      //console.log('params-> userID:',this.params.get('userID'))
+      //console.log('params-> devise:',this.params.get('devise'))
       this.uid = this.params.get('userID')
       this.solde = this.params.get('userSolde')
       this.devise = this.params.get('devise')
