@@ -48,8 +48,10 @@ export class CategoriesPage {
       if(snapshot.val() != null){
         this.categories = [];
         snapshot.forEach((childSnapshot)=>{
-          //console.log(childSnapshot.val())
-          this.categories.push(childSnapshot)
+          //console.log(childSnapshot.val().name)
+          if(childSnapshot.val().name){
+            this.categories.push(childSnapshot)
+          }
         })
         this.hideLoading()
       }
@@ -86,5 +88,5 @@ export class CategoriesPage {
   private hideLoading(){
     this.loader.dismiss();
   }
-  
+
 }

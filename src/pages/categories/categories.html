@@ -12,7 +12,15 @@
 
 
 <ion-content>
+  <ion-list class="addItem">
+    <ion-item>
+      <ion-icon item-left name="add"></ion-icon>
+      <ion-input (keyup)="onFocus()" [value]="newCat" [(ngModel)]="newCat" type="text" placeholder="Ajouter une catégorie"></ion-input>
+      <button item-right ion-button *ngIf="focus === true" (click)="saveCategorie()">ajouter</button>
+    </ion-item>
+  </ion-list>
   <ion-list>
+
     <ion-item-sliding *ngFor="let cat of categories">
       <ion-item>
         <p color="primary">{{cat.val().name}}</p>
@@ -25,10 +33,5 @@
       </ion-item-options>
     </ion-item-sliding>
 
-    <ion-item>
-      <ion-icon item-left name="add"></ion-icon>
-      <ion-input (keyup)="onFocus()" [value]="newCat" [(ngModel)]="newCat" type="text" placeholder="Ajouter une catégorie"></ion-input>
-      <button item-right ion-button *ngIf="focus === true" (click)="saveCategorie()">ajouter</button>
-    </ion-item>
   </ion-list>
 </ion-content>
