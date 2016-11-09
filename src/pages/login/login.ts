@@ -107,7 +107,9 @@ export class LoginPage {
   saveUserInfo(authenticatedUser:any){
     console.log('save user info ->', authenticatedUser)
     this.fb.userProfile.child(authenticatedUser.uid).set({
-      email: authenticatedUser.email
+      email: authenticatedUser.email,
+      devise: 'CHF',
+      blur: false
     }).then(() => {
       console.log('user Creat & loged')
     });

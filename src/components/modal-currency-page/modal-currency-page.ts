@@ -26,16 +26,30 @@ export class ModalCurrencyPage {
         if (user) {
           // User is signed in.
           this.user = user
-          this.devise = user.uid
+          this.loadData(this.user.uid)
         } else {
           // No user is signed in.
         }
     });
   }
 
+  loadData(uid){
+    this.fb.userProfile.child(uid)
+    .on('value', (snapshot)=> {
+      if(snapshot.val().devise){
+        this.devise = snapshot.val().devise
+      }
+      else {
+        this.devise = 'CHF+';
+      }
+    });
+  }
+
   saveData(){
-    if(this.devise.length >= 2){
-      console.log('save data-> ',this.devise)
+    if(this.devise.length >= 1){
+      this.fb.userProfile.child(this.user.uid).update({
+        devise: this.devise.toUpperCase()
+      })
     }
   }
   dismiss() {
