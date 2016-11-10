@@ -16,37 +16,41 @@ import { ModalCurrencyPage } from '../components/modal-currency-page/modal-curre
 
 import { FirebaseService } from '../providers/firebase-service';
 
-const app:Array<any>=[MyApp];
-const pages:Array<any> = [
-  HomePage,
-  LoginPage,
-  AddPage,
-  StatsPage,
-  HistoryPage,
-  SettingsPage,
-  CategoriesPage,
-  ModalCurrencyPage,
-  TabsPage,
-];
-const components:Array<any> = [
-  NumberIncrement
-];
-
-const providers:Array<any> = [
-  FirebaseService
-];
-const appIonicConfig = {
-  mode: 'md',
-  tabsPlacement: 'bottom'
-};
-
 @NgModule({
-  declarations: app.concat(pages).concat(components),
+  declarations: [
+    MyApp,
+    HomePage,
+    LoginPage,
+    AddPage,
+    StatsPage,
+    HistoryPage,
+    SettingsPage,
+    CategoriesPage,
+    TabsPage,
+    NumberIncrement,
+    ModalCurrencyPage
+  ],
   imports: [
-    IonicModule.forRoot(MyApp,appIonicConfig)
+    IonicModule.forRoot(MyApp, {
+      tabsPlacement: 'bottom',
+      mode: 'md'
+    })
   ],
   bootstrap: [IonicApp],
-  entryComponents: app.concat(pages),
-  providers: providers
+  entryComponents: [
+    MyApp,
+    HomePage,
+    LoginPage,
+    AddPage,
+    StatsPage,
+    HistoryPage,
+    SettingsPage,
+    CategoriesPage,
+    TabsPage,
+    ModalCurrencyPage
+  ],
+  providers: [
+    FirebaseService
+  ]
 })
 export class AppModule {}
