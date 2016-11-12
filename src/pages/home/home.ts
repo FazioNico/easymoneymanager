@@ -53,7 +53,7 @@ export class HomePage {
   loadUserSettings(uid){
     this.fb.userProfile.child(uid)
     .on('value', (snapshot)=> {
-      console.log(snapshot.val())
+      //console.log(snapshot.val())
       if(snapshot.val() != null || snapshot.val().blur){
         this.isBlur = snapshot.val().blur
       }

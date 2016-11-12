@@ -61,11 +61,11 @@ export class SettingsPage {
     //this.navCtrl.setRoot(LoginPage);
     this.fb.fireAuth.signOut().then(() =>{
       // Sign-out successful.
-      console.log('user logout')
+      //console.log('user logout')
       root.setRoot(LoginPage);
     }, (error) => {
       // An error happened.
-      console.log('Error with user logout')
+      //console.log('Error with user logout')
     });
   }
 

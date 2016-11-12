@@ -26,7 +26,7 @@ export class FirebaseService {
   currentUserWallet: any;
 
   constructor(public http: Http, public alertCtrl: AlertController) {
-    console.log('Hello Firebase Provider');
+    //console.log('Hello Firebase Provider');
     this.fireAuth = firebase.auth();
     this.userProfile = firebase.database().ref('/userProfile');
     this.userWallet = firebase.database().ref('/userWallet');
@@ -48,7 +48,7 @@ export class FirebaseService {
     userSoleRef.once('value', (snapshot)=> {
       if(snapshot.val() != null){
         this.walletSolde = snapshot.val().solde
-        console.log('userSole ->', this.walletSolde)
+        //console.log('userSole ->', this.walletSolde)
       }
     });
   }

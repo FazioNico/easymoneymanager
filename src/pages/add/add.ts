@@ -45,7 +45,7 @@ export class AddPage {
   }
 
   loadData(){
-    console.log('load user categories');
+    //console.log('load user categories');
     this.fb.userCat.child(this.user.uid)
     .on('value', (snapshot)=> {
       if(snapshot.val() != null){
@@ -100,7 +100,7 @@ export class AddPage {
   }
 
   ionViewDidLoad() {
-    console.log('Hello add Page');
+    //console.log('Hello add Page');
     this.amountForm = this.formBuilder.group({
       amount: ['', Validators.required],
       category: ['Divers', Validators.required]

@@ -71,7 +71,7 @@ export class StatsPage {
   loadUserData(uid){
     this.fb.userProfile.child(uid)
     .on('value', (snapshot)=> {
-      console.log(snapshot.val())
+      //console.log(snapshot.val())
       if(snapshot.val() != null || snapshot.val().blur){
         this.isBlur = snapshot.val().blur
       }
@@ -100,7 +100,7 @@ export class StatsPage {
       //this.depRevByCat = this.depRevByCat.json();
       this.hideLoading()
       //let dataReady = arrayReady.sort((a, b) => a.category.localeCompare(b.category));
-      console.log('dataReadyAll-> ',this.depRevByCat)
+      //console.log('dataReadyAll-> ',this.depRevByCat)
       //console.log('arrayReady-> ',arrayReady)
     })
   }

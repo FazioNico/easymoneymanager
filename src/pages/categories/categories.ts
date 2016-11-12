@@ -65,24 +65,24 @@ export class CategoriesPage {
   }
 
   saveCategorie(){
-    console.log('Save new categories...');
+    //console.log('Save new categories...');
     this.focus = false
     this.fb.userCat.child(this.uid).push({
       name: this.newCat
     })
     .then(()=>{
-      console.log('Categorie save!')
+      //console.log('Categorie save!')
       this.newCat = '';
     })
   }
 
   dellCategorie(catKey:string){
-    console.log('Dell new categories...');
+    //console.log('Dell new categories...');
     this.fb.userCat.child(this.uid).child(catKey).remove()
     .then(()=>{
-      console.log('Categorie dell!')
+      //console.log('Categorie dell!')
     })
-    console.log(catKey)
+    //console.log(catKey)
   }
 
   private hideLoading(){

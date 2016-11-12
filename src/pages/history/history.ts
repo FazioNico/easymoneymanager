@@ -86,7 +86,7 @@ export class HistoryPage {
   }
 
   dellEntry(event,itemID,status, amount){
-    console.log(itemID,status, amount)
+    //console.log(itemID,status, amount)
     this.loader = this.loadCtrl.create({
       dismissOnPageChange: true,
     });
