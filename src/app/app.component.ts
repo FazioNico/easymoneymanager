@@ -7,7 +7,7 @@ import { LoginPage } from '../pages/login/login';
 
 import firebase from 'firebase';
 
-const firebaseconfig = { // setup your Firebase config
+const firebaseconfig:Object = { // setup your Firebase config
   apiKey: "AIzaSyCgSn3sOEVI4loe5DqQbq1BRuof9PCuhXE",
   authDomain: "easymoneymanager-9d32e.firebaseapp.com",
   databaseURL: "https://easymoneymanager-9d32e.firebaseio.com",
