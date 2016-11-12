@@ -32,7 +32,11 @@ export class MyApp {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      StatusBar.styleDefault();
+      //StatusBar.styleDefault();
+      StatusBar.show();
+      StatusBar.overlaysWebView(false);
+      StatusBar.styleLightContent();
+      StatusBar.backgroundColorByHexString("#d76548");
     });
   }
   private setRoot(newRootPage: any){
