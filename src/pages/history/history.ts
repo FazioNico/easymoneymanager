@@ -94,10 +94,12 @@ export class HistoryPage {
     let newSolde:number;
     switch (status) {
       case true:
-        newSolde = +(Math.round(this.solde*Math.pow(10,2))/Math.pow(10,2)).toFixed(2) - (+(Math.round(amount*Math.pow(10,2))/Math.pow(10,2)).toFixed(2))
+        //newSolde = +(Math.round(this.solde*Math.pow(10,2))/Math.pow(10,2)).toFixed(2) - (+(Math.round(amount*Math.pow(10,2))/Math.pow(10,2)).toFixed(2));
+        newSolde = +(Math.round((this.solde - amount) * 100) / 100).toFixed(2)
         break;
       case false:
-        newSolde = +(Math.round(this.solde*Math.pow(10,2))/Math.pow(10,2)).toFixed(2) + (+(Math.round(amount*Math.pow(10,2))/Math.pow(10,2)).toFixed(2))
+        //newSolde = +(Math.round(this.solde*Math.pow(10,2))/Math.pow(10,2)).toFixed(2) + (+(Math.round(amount*Math.pow(10,2))/Math.pow(10,2)).toFixed(2))
+        newSolde = +(Math.round((this.solde + amount) * 100) / 100).toFixed(2)
         break;
     }
     this.fb.userWallet.child(this.uid + '/' + itemID).remove()
