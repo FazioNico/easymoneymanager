@@ -11,6 +11,10 @@ page-add {
   .divInput {
     max-width: 170px;
     margin: auto;
+
+    div>div {
+      font-size: 2.5rem;
+    }
   }
   ion-select {
     max-width: 65%;
