@@ -20,7 +20,7 @@ export class AddPage {
   user:any;
   devise:string;
   category: string = "Divers";
-  catData:string[] = [];
+  catData:Array<string> = [];
   loader:any;
 
   constructor(
@@ -42,6 +42,14 @@ export class AddPage {
       this.loadData()
     }
     this.devise = this.params.get('devise')
+  }
+  
+  ionViewDidLoad() {
+    //console.log('Hello add Page');
+    this.amountForm = this.formBuilder.group({
+      amount: ['', Validators.required],
+      category: ['Divers', Validators.required]
+    });
   }
 
   loadData(){
@@ -99,14 +107,6 @@ export class AddPage {
         this.navCtrl.pop();
       })
     }
-  }
-
-  ionViewDidLoad() {
-    //console.log('Hello add Page');
-    this.amountForm = this.formBuilder.group({
-      amount: ['', Validators.required],
-      category: ['Divers', Validators.required]
-    });
   }
 
   private hideLoading(){
