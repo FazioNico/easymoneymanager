@@ -32,17 +32,12 @@ export class LoginPage {
   ) {
     this.fb.fireAuth.onAuthStateChanged((user) => {
       if (user) {
-        //this.rootPage = HomePage;
-        //console.log("goto TabsPage ->", user);
-        //this.loadUserWallet(user.uid)
         this.navCtrl.setRoot(TabsPage);
       }
       else {
         this.login = 1;
       }
-
     });
-
   }
 
   ionViewDidLoad() {
@@ -53,26 +48,16 @@ export class LoginPage {
     });
   }
 
+  /* Events Methode */
+
   logForm(){
     //console.log('login user ->', this.user.value)
     this.fb.loginUser(this.user.value.email, this.user.value.password)
     .then( authData => {
-      //console.log('authData ->', authData.uid)
-      //this.loadUserWallet(authData.uid)
       this.navCtrl.setRoot(TabsPage);
     }, error => {
-      let alert = this.alertCtrl.create({
-        message: error.message,
-        buttons: [
-          {
-            text: "Ok",
-            role: 'cancel'
-          }
-        ]
-      });
-      alert.present();
+      this.showError( error.message ,false)
     });
-
   }
 
   goToSignup(){
@@ -81,12 +66,10 @@ export class LoginPage {
       this.showError("Tous les champs sont obligatoires",false)
       return;
     }
-
     this.loader = this.loadCtrl.create({
       dismissOnPageChange: true,
     });
     this.loader.present();
-
     this.fb.fireAuth.createUserWithEmailAndPassword(this.user.value.email, this.user.value.password)
     .then((data) => {
       //console.log('user signed')
@@ -100,10 +83,11 @@ export class LoginPage {
       var errorMessage = error.message;
       this.showError(errorMessage ,true)
       return;
-
-      // ...
     });
   }
+
+  /* Core Methode */
+
   saveUserInfo(authenticatedUser:any){
     //console.log('save user info ->', authenticatedUser)
     this.fb.userProfile.child(authenticatedUser.uid).set({
@@ -113,21 +97,18 @@ export class LoginPage {
     }).then(() => {
       //console.log('user Creat & loged')
     });
-
     //console.log('create user wallet')
     this.fb.userWallet.child(authenticatedUser.uid).push({
       price: 0,
       status: true,
       timestamp: Date.now()
     })
-
     //console.log('create walletSolde')
     this.fb.userSolde.child(authenticatedUser.uid).set({
       solde: 0
     }).then(()=>{
       //this.fb.setUserSolde(authenticatedUser.uid);
     })
-
     //console.log('create user categories')
     let cats = [
       'Alimentation',
