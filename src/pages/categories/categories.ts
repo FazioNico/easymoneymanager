@@ -45,9 +45,7 @@ export class CategoriesPage {
   }
 
   onKeyUp(){
-    if(this.newCat.length >= 2){
-      this.focus = true
-    }
+    (this.newCat.length >= 2) ? this.focus = true : this.focus = false
   }
 
   saveCategorie(){
