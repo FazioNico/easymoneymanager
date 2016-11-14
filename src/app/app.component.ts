@@ -23,11 +23,8 @@ export class MyApp {
   rootPage:any;
   constructor(platform: Platform) {
 
-    // init Firebase
-    firebase.initializeApp(firebaseconfig);
-    // let page = firebase.auth().currentUser ? TabsPage : LoginPage;
-    // this.setRoot(page);
     this.rootPage = LoginPage;
+    firebase.initializeApp(firebaseconfig);
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -38,9 +35,6 @@ export class MyApp {
       StatusBar.styleLightContent();
       StatusBar.backgroundColorByHexString("#d76548");
     });
-  }
-  private setRoot(newRootPage: any){
-    this.rootPage = newRootPage;
   }
 
 }
