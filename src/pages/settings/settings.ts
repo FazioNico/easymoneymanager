@@ -39,6 +39,30 @@ export class SettingsPage {
     });
   }
 
+  /* Events Methode */
+
+  goCategorie(){
+    this.navCtrl.push(CategoriesPage);
+  }
+
+  logout(){
+    /* to fix bug with navCtrl.setRoot()*/
+    const root = this.app.getRootNav() 
+    this.fb.fireAuth.signOut().then(() =>{
+      root.setRoot(LoginPage);
+    }, (error) => {
+      // An error happened.
+      //console.log('Error with user logout')
+    });
+  }
+
+  changeDevise(){
+    let modal = this.modalCtrl.create(ModalCurrencyPage);
+    modal.present();
+  }
+
+  /* Core Methode */
+
   loadData(user:any){
     this.fb.userProfile.child(user.uid)
     .on('value', (snapshot)=> {
@@ -50,29 +74,6 @@ export class SettingsPage {
         this.devise = 'CHF';
       }
     });
-  }
-
-  goCategorie(){
-    this.navCtrl.push(CategoriesPage);
-  }
-
-  logout(){
-    const root = this.app.getRootNav()
-    //this.navCtrl.setRoot(LoginPage);
-    this.fb.fireAuth.signOut().then(() =>{
-      // Sign-out successful.
-      //console.log('user logout')
-      root.setRoot(LoginPage);
-    }, (error) => {
-      // An error happened.
-      //console.log('Error with user logout')
-    });
-  }
-
-  changeDevise(){
-    //console.log('changeDevise')
-    let modal = this.modalCtrl.create(ModalCurrencyPage);
-    modal.present();
   }
 
 }
