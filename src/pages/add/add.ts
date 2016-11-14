@@ -30,8 +30,6 @@ export class AddPage {
     private formBuilder: FormBuilder,
     public fb: FirebaseService
   ) {
-    //console.log(this.params.get('solde'))
-    //console.log(this.params.get('devise'))
     let user = this.fb.fireAuth.currentUser
     if(user){
       this.user = user;
@@ -43,14 +41,29 @@ export class AddPage {
     }
     this.devise = this.params.get('devise')
   }
-  
+
+  /* Events Methode */
+
   ionViewDidLoad() {
-    //console.log('Hello add Page');
     this.amountForm = this.formBuilder.group({
       amount: ['', Validators.required],
       category: ['Divers', Validators.required]
     });
   }
+
+  addAmount(){
+    if(this.amountForm.value.amount){
+      this.calculat(true)
+    }
+  }
+
+  removeAmount(){
+    if(this.amountForm.value.amount){
+      this.calculat(false)
+    }
+  }
+
+  /* Core Methode */
 
   loadData(){
     //console.log('load user categories');
@@ -72,41 +85,32 @@ export class AddPage {
     });
   }
 
-  addAmount(){
-    if(this.amountForm.value.amount){
-      let categorie;
-      if(typeof this.amountForm.value.category === 'string'){
-        categorie = [this.amountForm.value.category]
-      }
-      else {
-        categorie = this.amountForm.value.category
-      }
-
-      //let total:number = +(Math.round(this.params.get('solde')*Math.pow(10,2))/Math.pow(10,2)).toFixed(2) + (+(Math.round(this.amountForm.value.amount*Math.pow(10,2))/Math.pow(10,2)).toFixed(2))
-      let total:number = +(Math.round((this.params.get('solde') + this.amountForm.value.amount) * 100) / 100).toFixed(2)
-      this.fb.saveUserWallet(total, +(Math.round((this.amountForm.value.amount) * 100) / 100).toFixed(2), categorie.toString(), true, this.user.uid)
-      .then(()=>{
-        this.navCtrl.pop();
-      })
-
+  calculat(dataType:boolean){
+    let categorie:any;
+    let total:number;
+    let amount:number = +(Math.round((this.amountForm.value.amount) * 100) / 100).toFixed(2);
+    if(typeof this.amountForm.value.category === 'string'){
+      categorie = [this.amountForm.value.category]
     }
+    else {
+      categorie = this.amountForm.value.category
+    }
+    switch (dataType) {
+      case true:
+        total = +(Math.round((this.params.get('solde') + (+amount)) * 100) / 100).toFixed(2)
+        break;
+      case false:
+        total= +(Math.round((this.params.get('solde') - (+amount)) * 100) / 100).toFixed(2)
+        break;
+    }
+    this.save(+total,+amount,categorie,dataType)
   }
 
-  removeAmount(){
-    if(this.amountForm.value.amount){
-      let categorie;
-      if(typeof this.amountForm.value.category === 'string'){
-        categorie = [this.amountForm.value.category]
-      }
-      else {
-        categorie = this.amountForm.value.category
-      }
-      let total:number = +(Math.round((this.params.get('solde') - this.amountForm.value.amount) * 100) / 100).toFixed(2)
-      this.fb.saveUserWallet(total, +(Math.round((this.amountForm.value.amount) * 100) / 100).toFixed(2), categorie.toString(), false, this.user.uid)
-      .then(()=>{
-        this.navCtrl.pop();
-      })
-    }
+  save(total:number, amount:number, categorie:any, dataType:boolean){
+    this.fb.saveUserWallet(total, +amount.toFixed(2), categorie.toString(), dataType, this.user.uid)
+    .then(()=>{
+      this.navCtrl.pop();
+    })
   }
 
   private hideLoading(){
