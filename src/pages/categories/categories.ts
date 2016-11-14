@@ -16,7 +16,7 @@ import { FirebaseService } from '../../providers/firebase-service';
 export class CategoriesPage {
 
   uid:number;
-  categories:any[] = [];
+  categories:Array<any> = [];
   focus: boolean = false;
   newCat: string;
   loader:any;
