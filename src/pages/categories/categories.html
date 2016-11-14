@@ -15,7 +15,7 @@
   <ion-list class="addItem">
     <ion-item>
       <ion-icon item-left name="add"></ion-icon>
-      <ion-input (keyup)="onFocus()" [value]="newCat" [(ngModel)]="newCat" type="text" placeholder="Ajouter une catégorie"></ion-input>
+      <ion-input (keyup)="onKeyUp()" [value]="newCat" [(ngModel)]="newCat" type="text" placeholder="Ajouter une catégorie"></ion-input>
       <button item-right ion-button *ngIf="focus === true" (click)="saveCategorie()">ajouter</button>
     </ion-item>
   </ion-list>

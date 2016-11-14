@@ -35,6 +35,8 @@ export class CategoriesPage {
     }
   }
 
+  /* Events Methode */
+
   ionViewDidLoad() {
     if(this.uid){
       this.loader.present();
@@ -42,23 +44,7 @@ export class CategoriesPage {
     }
   }
 
-  loadData(uid){
-    this.fb.userCat.child(uid)
-    .on('value', (snapshot)=> {
-      if(snapshot.val() != null){
-        this.categories = [];
-        snapshot.forEach((childSnapshot)=>{
-          //console.log(childSnapshot.val().name)
-          if(childSnapshot.val().name){
-            this.categories.push(childSnapshot)
-          }
-        })
-        this.hideLoading()
-      }
-    });
-  }
-
-  onFocus(){
+  onKeyUp(){
     if(this.newCat.length >= 2){
       this.focus = true
     }
@@ -82,7 +68,23 @@ export class CategoriesPage {
     .then(()=>{
       //console.log('Categorie dell!')
     })
-    //console.log(catKey)
+  }
+
+  /* Core Methode */
+  loadData(uid){
+    this.fb.userCat.child(uid)
+    .on('value', (snapshot)=> {
+      if(snapshot.val() != null){
+        this.categories = [];
+        snapshot.forEach((childSnapshot)=>{
+          //console.log(childSnapshot.val().name)
+          if(childSnapshot.val().name){
+            this.categories.push(childSnapshot)
+          }
+        })
+        this.hideLoading()
+      }
+    });
   }
 
   private hideLoading(){
