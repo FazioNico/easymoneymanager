@@ -12,7 +12,6 @@ import { FirebaseService } from '../../providers/firebase-service';
 export class HomePage {
 
   uid: number;
-  title: string;
   solde: number;
   devise: string = 'CHF';
   isFloat: boolean = true;
@@ -25,7 +24,6 @@ export class HomePage {
     public fb: FirebaseService
   ) {
 
-    this.title = 'Welcome to Ionic 2 RC.1 updated';
     this.devise = 'CHF';
     this.loader = this.loadingCtrl.create({
       content: "Chargement..."
@@ -40,6 +38,26 @@ export class HomePage {
       }
     })
   }
+
+  /* Events Methode */
+  goToLink(event,page){
+    switch (page) {
+      case 'add':
+        this.navCtrl.push(AddPage, {solde: this.solde, devise: this.devise});
+        break;
+      case 'history':
+        this.navCtrl.push(HistoryPage, {userID: this.uid, userSolde: this.solde, devise: this.devise});
+        break;
+    }
+  }
+
+  onBlur(){
+    this.fb.userProfile.child(this.uid).update({
+      blur: !this.isBlur
+    })
+  }
+
+  /* Core Methode */
 
   loadUserWallet(uid){
     this.fb.userSolde.child(uid).on('value', (snapshot)=> {
@@ -72,36 +90,6 @@ export class HomePage {
     if (parseInt(this.solde.toString()) === this.solde)  {
       this.isFloat = false;
     }
-  }
-
-  goToLink(event,page){
-    switch (page) {
-      case 'add':
-        this.navCtrl.push(AddPage, {solde: this.solde, devise: this.devise});
-        break;
-      case 'history':
-        this.navCtrl.push(HistoryPage, {userID: this.uid, userSolde: this.solde, devise: this.devise});
-        break;
-
-    }
-  }
-  sortObj(list, key) {
-      function compare(a, b) {
-          a = a[key];
-          b = b[key];
-          let type = (typeof(a) === 'string' ||
-                      typeof(b) === 'string') ? 'string' : 'number';
-          let result;
-          if (type === 'string') result = a.localeCompare(b);
-          else result = a - b;
-          return result;
-      }
-      return list.sort(compare);
-  }
-  onBlur(){
-    this.fb.userProfile.child(this.uid).update({
-      blur: !this.isBlur
-    })
   }
 
   private hideLoading(){
