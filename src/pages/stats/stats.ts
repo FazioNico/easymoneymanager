@@ -59,6 +59,8 @@ export class StatsPage {
     ]
   }
 
+  /* Events Methode */
+
   ionViewDidLoad() {
     //console.log('Hello Stats Page');
     if(this.userID){
@@ -66,50 +68,6 @@ export class StatsPage {
       this.loadData(this.userID)
       //this.ltest(this.userID)
     }
-  }
-
-  loadUserData(uid){
-    this.fb.userProfile.child(uid)
-    .on('value', (snapshot)=> {
-      //console.log(snapshot.val())
-      if(snapshot.val() != null || snapshot.val().blur){
-        this.isBlur = snapshot.val().blur
-      }
-      else {
-        this.isBlur = false
-      }
-      if(snapshot.val().devise){
-        this.devise = snapshot.val().devise
-      }
-      (this.isBlur === true) ?  document.querySelector('h1').classList.add("blur") : document.querySelector('h1').classList.remove("blur");
-    });
-  }
-
-  loadData(uid){
-    let dateMin = new Date(this.year, this.month, 1)
-    let dateMax = new Date(this.year, this.month, 31)
-    let test = this.fb.userWallet.child(uid)
-    test.on('value', (snapshot) => {
-      //console.log('test-> ',snapshot.val())
-
-      let dataReadyTrue = {};
-      let dataReadyFalse = {};
-      let datas = snapshot.val();
-      this.getDepRevByAmount(datas,dateMin,dateMax);
-      this.depRevByCat = this.getDepRevByCat(datas,dateMin,dateMax);
-      //this.depRevByCat = this.depRevByCat.json();
-      this.hideLoading()
-      //let dataReady = arrayReady.sort((a, b) => a.category.localeCompare(b.category));
-      //console.log('dataReadyAll-> ',this.depRevByCat)
-      //console.log('arrayReady-> ',arrayReady)
-    })
-  }
-  keys(keyName) : Array<string> {
-    return Object.keys(this.depRevByCat[keyName]);
-  }
-
-  daysInMonth(month) {
-    return new Date(this.year, month, 0).getDate();
   }
 
   upMont(){
@@ -126,6 +84,7 @@ export class StatsPage {
     //   this.year = this.year + 1
     // }
   }
+
   downMont(){
     if(this.month > 0){
       this.loader = this.loadingCtrl.create({
@@ -141,8 +100,42 @@ export class StatsPage {
     // }
   }
 
-  getDepRevByAmount(datas,dateMin,dateMax){
+  /* Core Methode */
 
+  loadUserData(uid){
+    this.fb.userProfile.child(uid)
+    .on('value', (snapshot)=> {
+      //console.log(snapshot.val())
+      if(snapshot.val() != null || snapshot.val().blur){
+        this.isBlur = snapshot.val().blur
+      }
+      else {
+        this.isBlur = false
+      }
+      if(snapshot.val().devise){
+        this.devise = snapshot.val().devise
+      }
+      (this.isBlur === true) ? document.querySelector('h1').classList.add("blur") : document.querySelector('h1').classList.remove("blur");
+    });
+  }
+
+  loadData(uid){
+    let dateMin = new Date(this.year, this.month, 1)
+    let dateMax = new Date(this.year, this.month, 31)
+    let test = this.fb.userWallet.child(uid)
+    test.on('value', (snapshot) => {
+      let dataReadyTrue = {};
+      let dataReadyFalse = {};
+      let datas = snapshot.val();
+      this.getDepRevByAmount(datas,dateMin,dateMax);
+      this.getDepRevByCat(datas,dateMin,dateMax);
+      this.hideLoading()
+      //console.log('dataReadyAll-> ',this.depRevByCat)
+      //console.log('arrayReady-> ',arrayReady)
+    })
+  }
+
+  getDepRevByAmount(datas,dateMin,dateMax){
     let creditTotal:number = 0,
         debitTotal:number = 0;
     Object.keys(datas).map((key) =>{
@@ -161,6 +154,7 @@ export class StatsPage {
     this.debitTotal = +(Math.round(debitTotal*Math.pow(10,2))/Math.pow(10,2)).toFixed(2);
     this.solde = +(Math.round((Number(creditTotal) - Number(debitTotal))*Math.pow(10,2))/Math.pow(10,2)).toFixed(2)
   }
+
   getDepRevByCat(datas,dateMin,dateMax){
     let dataReadyTrue = {},
         dataReadyFalse = {};
@@ -176,7 +170,6 @@ export class StatsPage {
               if(catReady){
                 dataReadyTrue[catReady] = datas[key].price
               }
-
             }
             break;
           case false:
@@ -190,10 +183,19 @@ export class StatsPage {
         }
       }
     });
-    return {'revenu': dataReadyTrue, 'depense': dataReadyFalse};
+    this.depRevByCat = {'revenu': dataReadyTrue, 'depense': dataReadyFalse};
   }
 
   private hideLoading(){
     this.loader.dismiss();
+  }
+
+  /* View Methode */
+  keys(keyName) : Array<string> {
+    return Object.keys(this.depRevByCat[keyName]);
+  }
+
+  daysInMonth(month) {
+    return new Date(this.year, month, 0).getDate();
   }
 }
