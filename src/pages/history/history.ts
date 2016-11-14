@@ -32,8 +32,6 @@ export class HistoryPage {
     public fb: FirebaseService
   ) {
     if (this.params.get('userID') && this.params.get('userSolde')){
-      //console.log('params-> userID:',this.params.get('userID'))
-      //console.log('params-> devise:',this.params.get('devise'))
       this.uid = this.params.get('userID')
       this.solde = this.params.get('userSolde')
       this.devise = this.params.get('devise')
@@ -44,7 +42,46 @@ export class HistoryPage {
     }
   }
 
+  /* Events Methode */
+
+  ionViewDidLoad() {
+  }
+
+  dellEntry(event,itemID,status, amount){
+    //console.log(itemID,status, amount)
+    this.loader = this.loadCtrl.create({
+      dismissOnPageChange: true,
+    });
+    this.loader.present();
+    let newSolde:number;
+    switch (status) {
+      case true:
+        //newSolde = +(Math.round(this.solde*Math.pow(10,2))/Math.pow(10,2)).toFixed(2) - (+(Math.round(amount*Math.pow(10,2))/Math.pow(10,2)).toFixed(2));
+        newSolde = +(Math.round((this.solde - amount) * 100) / 100).toFixed(2)
+        break;
+      case false:
+        //newSolde = +(Math.round(this.solde*Math.pow(10,2))/Math.pow(10,2)).toFixed(2) + (+(Math.round(amount*Math.pow(10,2))/Math.pow(10,2)).toFixed(2))
+        newSolde = +(Math.round((this.solde + amount) * 100) / 100).toFixed(2)
+        break;
+    }
+    this.fb.userWallet.child(this.uid + '/' + itemID).remove()
+    .then(()=>{
+      this.fb.userSolde.child(this.uid).update({
+        solde: newSolde
+      })
+    })
+    .then(()=>{
+      this.loader.dismiss();
+    })
+  }
+
+  loadMore(event){
+    this.nbr = this.nbr + 10
+    this.loadHistoryWallet(this.uid)
+  }
+
   /* Core Methode */
+
   loadHistoryWallet(uid:number){
     this.loader = this.loadCtrl.create({
       content: "Chargement..."
@@ -81,39 +118,12 @@ export class HistoryPage {
       return list.sort(compare);
   }
 
-  /* Events Methode */
-  ionViewDidLoad() {
-  }
-
-  dellEntry(event,itemID,status, amount){
-    //console.log(itemID,status, amount)
-    this.loader = this.loadCtrl.create({
-      dismissOnPageChange: true,
-    });
-    this.loader.present();
-    let newSolde:number;
-    switch (status) {
-      case true:
-        //newSolde = +(Math.round(this.solde*Math.pow(10,2))/Math.pow(10,2)).toFixed(2) - (+(Math.round(amount*Math.pow(10,2))/Math.pow(10,2)).toFixed(2));
-        newSolde = +(Math.round((this.solde - amount) * 100) / 100).toFixed(2)
-        break;
-      case false:
-        //newSolde = +(Math.round(this.solde*Math.pow(10,2))/Math.pow(10,2)).toFixed(2) + (+(Math.round(amount*Math.pow(10,2))/Math.pow(10,2)).toFixed(2))
-        newSolde = +(Math.round((this.solde + amount) * 100) / 100).toFixed(2)
-        break;
-    }
-    this.fb.userWallet.child(this.uid + '/' + itemID).remove()
-    .then(()=>{
-      this.fb.userSolde.child(this.uid).update({
-        solde: newSolde
-      })
-    })
-    .then(()=>{
-      this.loader.dismiss();
-    })
+  private hideLoading(){
+    this.loader.dismiss();
   }
 
   /* View Methode */
+
   setSolde(amount:number):string{
     let amountRef = amount
     if (parseInt(amount.toString()) === amountRef)  {
@@ -131,12 +141,4 @@ export class HistoryPage {
       return formattedDate;
   }
 
-  loadMore(event){
-    this.nbr = this.nbr + 10
-    this.loadHistoryWallet(this.uid)
-  }
-
-  private hideLoading(){
-    this.loader.dismiss();
-  }
 }
