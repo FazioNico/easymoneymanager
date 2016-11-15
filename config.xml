@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="ch.nicolasfazio.easymoneymanager523293" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="ch.nicolasfazio.easymoneymanager" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>EasyMoneyManager</name>
   <description>Easyly manager your money</description>
   <author email="contact@nicolasfazio.ch" href="http://nicolasfazio.ch/">Nicolas Fazio</author>
