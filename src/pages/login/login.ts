@@ -22,6 +22,15 @@ export class LoginPage {
   user:any;
   login:number = 0;
   loader:any;
+  cats:Array<string> = [
+    'Alimentation',
+    'Divers',
+    'Assurence',
+    'Téléphone',
+    'Internet',
+    'Cigarette',
+    'Salaire'
+  ];
 
   constructor(
     public navCtrl: NavController,
@@ -40,6 +49,8 @@ export class LoginPage {
     });
   }
 
+  /* Events Methode */
+
   ionViewDidLoad() {
     //console.log('Hello Login Page');
     this.user = this.formBuilder.group({
@@ -47,8 +58,6 @@ export class LoginPage {
       password: ['', Validators.required],
     });
   }
-
-  /* Events Methode */
 
   logForm(){
     //console.log('login user ->', this.user.value)
@@ -110,16 +119,7 @@ export class LoginPage {
       //this.fb.setUserSolde(authenticatedUser.uid);
     })
     //console.log('create user categories')
-    let cats = [
-      'Alimentation',
-      'Divers',
-      'Assurence',
-      'Téléphone',
-      'Internet',
-      'Cigarette',
-      'Salaire'
-    ];
-    cats.map((cat)=>{
+    this.cats.map((cat)=>{
       this.fb.userCat.child(authenticatedUser.uid).push({
         name: cat
       })

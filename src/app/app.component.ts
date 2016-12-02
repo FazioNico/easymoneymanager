@@ -6,14 +6,9 @@ import { StatusBar } from 'ionic-native';
 import { LoginPage } from '../pages/login/login';
 
 import firebase from 'firebase';
+import { FB_CONFIG } from '../providers/fb-config';
 
-const firebaseconfig:Object = { // setup your Firebase config
-  apiKey: "AIzaSyCgSn3sOEVI4loe5DqQbq1BRuof9PCuhXE",
-  authDomain: "easymoneymanager-9d32e.firebaseapp.com",
-  databaseURL: "https://easymoneymanager-9d32e.firebaseio.com",
-  storageBucket: "easymoneymanager-9d32e.appspot.com",
-  messagingSenderId: "501530632587"
-};
+const firebaseconfig:Object = FB_CONFIG;
 
 @Component({
   template: `<ion-nav [root]="rootPage"></ion-nav>`
