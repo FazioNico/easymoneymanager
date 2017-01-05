@@ -24,7 +24,7 @@
       <p>Choix de la devise</p>
       <ion-input  type="text" [value]="devise" [(ngModel)]="devise"></ion-input>
       <br />
-      <button ion-button (click)=saveData()>modifier</button>
+      <button #save ion-button (click)=saveData(save)>modifier</button>
     </div>
   </div>
 

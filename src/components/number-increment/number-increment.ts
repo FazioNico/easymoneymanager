@@ -29,11 +29,12 @@ export class NumberIncrement implements OnChanges{
   }
 
   increment(){
+
     if(this.inputData){
       let fps = 1000 / 60,
           increment = (this.inputData / 1000) * fps;
       let timer = setInterval(() => {
-        if(this.solde < this.inputData) {
+        if(this.solde <= this.inputData-1) {
           this.solde += Math.round(increment);
         } else {
           if(Number.isInteger(parseFloat(this.inputData))){
@@ -44,8 +45,9 @@ export class NumberIncrement implements OnChanges{
           }
           clearInterval(timer);
         }
+        //  console.log(this.solde, this.inputData)
         /* Fix bug detect propreties Changes with setInterval */
-        //this.cdRef.detectChanges() /*  detectChanges() cause error on longin user ???
+        // this.cdRef.detectChanges() /*  detectChanges() cause error on longin user ??? */
         this.cdRef.markForCheck() // this on don't mek troubles..
       }, 1);
     }

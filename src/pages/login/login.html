@@ -6,12 +6,10 @@
 -->
 
 <ion-content padding>
-      <div class="displayTable" text-center *ngIf="login === 1">
+      <div class="displayTable" text-center >
         <div class="cellTable">
 
-          <h1 primary text-center>Easy Money Manager</h1>
-          <p primary text-center>Connecte toi à ton compte pour pouvoir utiliser l'application</p>
-          <br>
+          <div id="logo">$</div>
 
           <form [formGroup]="user">
             <ion-item>
@@ -29,6 +27,7 @@
               <br/>
               <button ion-button round  (click)="goToSignup()" [disabled]="!user.valid" color="withe">New Account</button>
             </div>
+            <span ion-text color="light" (click)="resetPassword()">Forguet Password?</span>
           </form>
 
         </div>

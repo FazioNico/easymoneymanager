@@ -30,12 +30,16 @@
             <ion-option *ngFor="let cat of catData" value="{{cat}}">{{cat}}</ion-option>
           </ion-select>
         </ion-item>
-        <div text-center>
-          <br/>
-          <button ion-button outline round icon-left (click)="removeAmount()" [disabled]="!amountForm.valid" color="primary"><ion-icon name="remove"></ion-icon> Dépense </button>
-          <button ion-button outline round icon-left (click)="addAmount()" [disabled]="!amountForm.valid" color="secondary"><ion-icon name="add"></ion-icon> Revenu </button>
-        </div>
       </form>
+      <ion-item>
+        <ion-label>Date</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" min="{{thisYear - 10}}" max="{{thisYear + 1}}" [(ngModel)]="dateNow"></ion-datetime>
+      </ion-item>
+      <div text-center>
+        <br/>
+        <button #remove ion-button outline round icon-left (click)="removeAmount(remove,add)" [disabled]="!amountForm.valid" color="primary"><ion-icon name="remove"></ion-icon> Dépense </button>
+        <button #add ion-button outline round icon-left (click)="addAmount(remove,add)" [disabled]="!amountForm.valid" color="secondary"><ion-icon name="add"></ion-icon> Revenu </button>
+      </div>
     </div>
   </div>
 

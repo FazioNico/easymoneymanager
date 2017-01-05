@@ -9,9 +9,20 @@ page-login {
     display: table-cell;
     vertical-align: middle;
   }
-  
+
   .content-md, .item-md {
     background: $text-color;
+    color: #fff;
+  }
+  #logo {
+    height:14rem;
+    width:14rem;
+    margin:auto;
+    border-radius: 100%;
+    background: color($colors, secondary);
+    padding: 3.5rem 0rem;
+    text-align: center;
+    font-size: 6rem;
     color: #fff;
   }
   .button-md-withe {

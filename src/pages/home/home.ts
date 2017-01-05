@@ -86,6 +86,7 @@ export class HomePage {
   }
 
   setSolde(amount:number){
+    // console.log(amount)
     this.solde = amount
     if (parseInt(this.solde.toString()) === this.solde)  {
       this.isFloat = false;

@@ -18,10 +18,10 @@
   <ion-list>
     <ion-item-sliding *ngFor="let entry of wallet" >
       <ion-item>
-        <h2 color="gray-darken">{{cvtTimestamp(entry.timestamp)}}</h2>
-        <p color="gray">{{entry.category}}</p>
-        <span *ngIf="entry.status === true" item-right color="secondary">+ {{devise}} {{setSolde(entry.price) }}</span>
-        <span *ngIf="entry.status === false" item-right>- {{devise}} {{setSolde(entry.price) }}</span>
+        <h2 ion-text color="gray-darken">{{cvtTimestamp(entry.timestamp)}}</h2>
+        <p ion-text color="gray">{{entry.category}}</p>
+        <span *ngIf="entry.status === true" item-right ion-text color="secondary">+ {{devise}} {{setSolde(entry.price) }}</span>
+        <span *ngIf="entry.status === false" item-right ion-text color="primary">- {{devise}} {{setSolde(entry.price) }}</span>
       </ion-item>
       <ion-item-options side="right">
         <button ion-button (click)="dellEntry($event,entry.id,entry.status,entry.price)" color="primary">
@@ -32,11 +32,10 @@
     </ion-item-sliding>
 
   </ion-list>
-
-  <div text-center>
+  <div text-center *ngIf="nbr <= totalWallet">
     <button ion-button color="gray" small outline round (click)="loadMore($event)">
       more
     </button>
   </div>
-
+  <br>
 </ion-content>

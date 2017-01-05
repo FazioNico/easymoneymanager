@@ -53,7 +53,7 @@ export class FirebaseService {
     });
   }
 
-  saveUserWallet(totalWallet, amountItem, categorie, status, uid){
+  saveUserWallet(totalWallet, amountItem, categorie, status, dateTime, uid){
     return this.userSolde.child(uid).set({
       solde: totalWallet
     })
@@ -62,9 +62,12 @@ export class FirebaseService {
             price: amountItem,
             category: categorie,
             status: status,
-            timestamp: Date.now()
+            timestamp:dateTime
           })
     })
+  }
 
+  resetPassword(email: string): any {
+    return this.fireAuth.sendPasswordResetEmail(email);
   }
 }

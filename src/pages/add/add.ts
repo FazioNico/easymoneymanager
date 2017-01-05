@@ -22,6 +22,9 @@ export class AddPage {
   category: string = "Divers";
   catData:Array<string> = [];
   loader:any;
+  date:Date = new Date()
+  dateNow:string = this.date.toISOString()
+  thisYear:number = this.date.getFullYear()
 
   constructor(
     public navCtrl: NavController,
@@ -30,6 +33,11 @@ export class AddPage {
     private formBuilder: FormBuilder,
     public fb: FirebaseService
   ) {
+    this.amountForm = this.formBuilder.group({
+      amount: ['', Validators.required],
+      category: ['Divers', Validators.required]
+    });
+
     let user = this.fb.fireAuth.currentUser
     if(user){
       this.user = user;
@@ -43,22 +51,25 @@ export class AddPage {
   }
 
   /* Events Methode */
-
   ionViewDidLoad() {
-    this.amountForm = this.formBuilder.group({
-      amount: ['', Validators.required],
-      category: ['Divers', Validators.required]
-    });
+
   }
 
-  addAmount(){
+  addAmount(remove,add){
     if(this.amountForm.value.amount){
+      // disable form button after click
+      remove._elementRef.nativeElement.disabled = true
+      add._elementRef.nativeElement.disabled = true
       this.calculat(true)
     }
+
   }
 
-  removeAmount(){
+  removeAmount(remove,add){
     if(this.amountForm.value.amount){
+      // disable form button after click
+      remove._elementRef.nativeElement.disabled = true
+      add._elementRef.nativeElement.disabled = true
       this.calculat(false)
     }
   }
@@ -103,11 +114,14 @@ export class AddPage {
         total= +(Math.round((this.params.get('solde') - (+amount)) * 100) / 100).toFixed(2)
         break;
     }
-    this.save(+total,+amount,categorie,dataType)
+    // Convert Date.toISOString() to DateTime
+    let dateTime = Date.parse(this.dateNow)
+    //console.log('date-> ', dateTime)
+    this.save(+total,+amount,categorie,dataType, dateTime)
   }
 
-  save(total:number, amount:number, categorie:any, dataType:boolean){
-    this.fb.saveUserWallet(total, +amount.toFixed(2), categorie.toString(), dataType, this.user.uid)
+  save(total:number, amount:number, categorie:any, dataType:boolean, dateTime:number){
+    this.fb.saveUserWallet(total, +amount.toFixed(2), categorie.toString(), dataType, dateTime, this.user.uid)
     .then(()=>{
       this.navCtrl.pop();
     })

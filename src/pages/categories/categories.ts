@@ -45,6 +45,7 @@ export class CategoriesPage {
   }
 
   onKeyUp(){
+    console.log(this.newCat.length);
     (this.newCat.length >= 2) ? this.focus = true : this.focus = false
   }
 
@@ -80,6 +81,9 @@ export class CategoriesPage {
             this.categories.push(childSnapshot)
           }
         })
+        this.hideLoading()
+      }
+      else {
         this.hideLoading()
       }
     });

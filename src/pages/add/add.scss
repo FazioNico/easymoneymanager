@@ -22,4 +22,7 @@ page-add {
   .select-text {
     max-width: 100px;
   }
+  .text-input-md, .select-md, .datetime-md {
+    color: color($colors, primary);
+  }
 }

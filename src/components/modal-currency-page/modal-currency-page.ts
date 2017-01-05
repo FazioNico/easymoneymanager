@@ -40,13 +40,15 @@ export class ModalCurrencyPage {
         this.devise = snapshot.val().devise
       }
       else {
-        this.devise = 'CHF+';
+        this.devise = 'CHF';
       }
     });
   }
 
-  saveData(){
+  saveData(element){
     if(this.devise.length >= 1){
+      // disable button element
+      element._elementRef.nativeElement.disabled = true
       this.fb.userProfile.child(this.user.uid).update({
         devise: this.devise.toUpperCase()
       }).then(()=>{

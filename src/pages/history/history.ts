@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController } from 'ionic-angular';
 
-import { LoginPage } from '../login/login';
 import { FirebaseService } from '../../providers/firebase-service';
 
 
@@ -20,7 +19,8 @@ export class HistoryPage {
   uid: number;
   solde: number;
   devise: string;
-  wallet: any;
+  wallet: any[];
+  totalWallet:number;
   userWallet:any;
   nbr:number = 10
   loader:any;
@@ -31,6 +31,7 @@ export class HistoryPage {
     public loadCtrl:LoadingController,
     public fb: FirebaseService
   ) {
+
     if (this.params.get('userID') && this.params.get('userSolde')){
       this.uid = this.params.get('userID')
       this.solde = this.params.get('userSolde')
@@ -38,7 +39,7 @@ export class HistoryPage {
       this.loadHistoryWallet(this.uid);
     }
     else {
-      this.navCtrl.setRoot(LoginPage);
+      //this.navCtrl.setRoot(LoginPage);
     }
   }
 
@@ -99,6 +100,7 @@ export class HistoryPage {
         })
         let arrayValSortedBy:any[] = this.sortObj(arrayVal, 'timestamp');
         this.wallet = arrayValSortedBy.reverse();
+        this.totalWallet = this.wallet.length
         this.hideLoading()
       }
     });

@@ -1,6 +1,5 @@
-import { NgModule } from '@angular/core';
-import { IonicApp, IonicModule } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
+import { NgModule, ErrorHandler } from '@angular/core';
+import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
 import { HomePage } from '../pages/home/home';
@@ -14,7 +13,10 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { NumberIncrement } from '../components/number-increment/number-increment';
 import { ModalCurrencyPage } from '../components/modal-currency-page/modal-currency-page';
 
+import * as firebase from "firebase";
 import { FirebaseService } from '../providers/firebase-service';
+import { FB_CONFIG } from '../providers/fb-config';
+const firebaseconfig:Object = FB_CONFIG;
 
 const app:Array<any> = [MyApp];
 const pages:Array<any> = [
@@ -35,16 +37,18 @@ const appConfig:Object = {
   tabsPlacement: 'bottom',
   mode: 'md'
 };
+const providers:Array<any> =  [
+  //{provide: ErrorHandler, useClass: IonicErrorHandler},
+  FirebaseService
+]
 
 @NgModule({
   declarations: [...app,...pages,...components],
   imports: [
-    IonicModule.forRoot(MyApp, appConfig)
+    IonicModule.forRoot(MyApp, appConfig, firebase.initializeApp(firebaseconfig))
   ],
   bootstrap: [IonicApp],
   entryComponents: [...app,...pages],
-  providers: [
-    FirebaseService
-  ]
+  providers: [...providers]
 })
 export class AppModule {}

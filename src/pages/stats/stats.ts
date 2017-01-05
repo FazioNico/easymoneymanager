@@ -71,7 +71,7 @@ export class StatsPage {
   }
 
   upMont(){
-    if(this.month < 12){
+    if(this.month < 11){
       this.loader = this.loadingCtrl.create({
         content: "Chargement..."
       });
@@ -79,10 +79,10 @@ export class StatsPage {
       this.month = this.month + 1
       this.loadData(this.userID)
     }
-    // else {
-    //   this.month = 0
-    //   this.year = this.year + 1
-    // }
+    else {
+      this.month = 0
+      this.year = this.year + 1
+    }
   }
 
   downMont(){
@@ -94,10 +94,16 @@ export class StatsPage {
       this.month = this.month - 1
       this.loadData(this.userID)
     }
-    // else {
-    //   this.month = 12
-    //   this.year = this.year - 1
-    // }
+    else {
+      this.loader = this.loadingCtrl.create({
+        content: "Chargement..."
+      });
+      this.loader.present();
+
+      this.month = 11
+      this.year = this.year - 1
+      this.loadData(this.userID)
+    }
   }
 
   /* Core Methode */
@@ -124,8 +130,6 @@ export class StatsPage {
     let dateMax = new Date(this.year, this.month, 31)
     let test = this.fb.userWallet.child(uid)
     test.on('value', (snapshot) => {
-      let dataReadyTrue = {};
-      let dataReadyFalse = {};
       let datas = snapshot.val();
       this.getDepRevByAmount(datas,dateMin,dateMax);
       this.getDepRevByCat(datas,dateMin,dateMax);

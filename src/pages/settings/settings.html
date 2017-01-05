@@ -17,17 +17,17 @@
 
     <ion-list>
       <ion-item>
-          <h2 color="gray-darken">Connecté en tant que</h2>
-          <p color="primary">{{email}}</p>
+          <h2 ion-text color="gray-darken">Connecté en tant que</h2>
+          <p ion-text color="primary">{{email}}</p>
           <button item-right ion-button color="secondary" (click)="logout()">Logout</button>
       </ion-item>
       <ion-item>
-          <h2 color="gray-darken">Liste des catégories</h2>
+          <h2 ion-text color="gray-darken">Liste des catégories</h2>
           <button item-right ion-button color="secondary" (click)="goCategorie()">modifier</button>
       </ion-item>
       <ion-item>
-          <h2 color="gray-darken">Devise</h2>
-          <p color="primary">{{devise}}</p>
+          <h2 ion-text color="gray-darken">Devise</h2>
+          <p ion-text color="primary">{{devise}}</p>
           <button item-right ion-button color="secondary" (click)="changeDevise()">modifier</button>
       </ion-item>
     </ion-list>

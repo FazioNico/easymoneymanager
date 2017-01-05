@@ -13,13 +13,13 @@
 </ion-header>
 
 <ion-content>
-  <div class="displayTable">
+  <div  *ngIf="depRevByCat" class="displayTable">
     <div class="cellTable">
-      <div text-center >
-        <p color="gray-darken">période du <br />01/{{month+1}}/{{year}} au {{daysInMonth(month+1)}}/{{month+1}}/{{year}}</p>
+      <div id="periode" text-center >
+        <p ion-text color="gray-darken">période du <br />01/{{month+1}}/{{year}} au {{daysInMonth(month+1)}}/{{month+1}}/{{year}}</p>
       </div>
 
-      <div *ngIf="depRevByCat">
+      <div>
         <ion-list inset>
           <ion-item>
             <span class="amount total">Dépences</span>
@@ -30,7 +30,7 @@
           </ion-item>
           <ion-item>
             <span class=" total">Total</span>
-            <span class=" total" item-right>{{devise}} <nbrInc [inputData]="debitTotal"></nbrInc></span>
+            <span class=" total" item-right>{{devise}} {{debitTotal}}</span>
           </ion-item>
         </ion-list>
         <hr/>
@@ -44,7 +44,7 @@
           </ion-item>
           <ion-item>
             <span class=" total">Total</span>
-            <span class=" total" item-right>{{devise}} <nbrInc [inputData]="creditTotal"></nbrInc></span>
+            <span class=" total" item-right>{{devise}} {{creditTotal}}</span>
           </ion-item>
         </ion-list>
         <hr/>
@@ -54,15 +54,20 @@
           </ion-item>
           <ion-item>
             <span class=" total">Total</span>
-            <span class=" total" item-right>{{devise}} <nbrInc [inputData]="solde"></nbrInc></span>
+            <span class=" total" item-right>{{devise}} {{solde}}</span>
+            <!-- <span class=" total" item-right>{{devise}} <nbrInc [inputData]="solde"></nbrInc></span> -->
           </ion-item>
         </ion-list>
 
       </div>
-
+      <hr/>
       <div padding text-center>
-        <ion-badge (click)="downMont()" item-right *ngIf="month > 0">< {{monthName[month - 1]}} </ion-badge>
-        <ion-badge (click)="upMont()" item-right *ngIf="month < nowMonth">{{monthName[month+1]}} ></ion-badge>
+        <ion-badge (click)="downMont()" item-right *ngIf="month >= 0">< {{(month>0)?monthName[month - 1]:monthName[11]}} </ion-badge>
+
+        <ion-badge (click)="upMont()" item-right *ngIf="month == 0 ">{{monthName[month + 1]}} ></ion-badge>
+        <ion-badge (click)="upMont()" item-right *ngIf="month < 11 && month > 0 ">{{monthName[month + 1]}} ></ion-badge>
+        <ion-badge (click)="upMont()" item-right *ngIf="month == 11">{{monthName[0]}} ></ion-badge>
+
       </div>
 
     </div>
