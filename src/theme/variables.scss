@@ -82,7 +82,9 @@ $colors: (
 @import "roboto";
 @import "noto-sans";
 
-
+html,body, ion-nav {
+  background: #F27757!important;
+}
 $tabs-md-background: #F27757!important;
 $tabs-md-tab-color-active : #ffffff!important;
 $tabs-md-tab-color :#ff9e84!important;

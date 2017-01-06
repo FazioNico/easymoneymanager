@@ -19,11 +19,14 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
       Splashscreen.hide();
+      StatusBar.overlaysWebView(false);
+      StatusBar.styleLightContent();
+      StatusBar.backgroundColorByHexString("#d76548");
     });
 
     /*
     *   Use firebase.onAuthStateChanged() to watch current user auth status
-    *   and set or redirect on change, the correct application rootPage 
+    *   and set or redirect on change, the correct application rootPage
     */
     this.fb.fireAuth.onAuthStateChanged((user) => {
       /* Use NgZone to fix bug with firebase async load data */
